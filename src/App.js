@@ -3,12 +3,11 @@ import "./App.css";
 import "../src/assets/styles/index.css";
 import "../src/assets/styles/tailwind.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Landing from "../src/Auth/Landing";
-import Index from "./Auth/Index";
-import Login from "./Auth/auth/Login";
-import Register from "./Auth/auth/Register";
-import Profile from "./Auth/Profile";
-import Dashboard from "./Auth/admin/Dashboard";
+import Landing from "./Pages/Landing";
+import Profile from "./Pages/Profile";
+import Settings from "./Pages/Settings";
+ 
+import IndexDropdown from "./components/Sidebar/Sidebar"
 
 function App() {
   return (
@@ -16,11 +15,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Landing />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/index" element={<Index />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/dash" element={<Dashboard />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/card" element={<IndexDropdown />} />
         </Routes>
       </BrowserRouter>
     </div>
