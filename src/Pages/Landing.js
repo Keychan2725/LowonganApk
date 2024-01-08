@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 // components
-
+import Logo from "../assets/img/letter-lp-logo-concept-on-white-background-vector-removebg-preview.png";
 import Navbar from "../components/Navbars/AuthNavbar.js";
 import Footer from "../components/Footers/Footer.js";
 

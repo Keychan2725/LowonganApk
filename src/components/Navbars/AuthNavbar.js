@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 // components
-
+import Logo from "../../assets/img/letter-lp-logo-concept-on-white-background-vector-removebg-preview.png";
 import PagesDropdown from "../../components/Dropdowns/PagesDropdown.js";
 
 export default function Navbar(props) {
@@ -17,7 +17,7 @@ export default function Navbar(props) {
               className="text-white text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase"
               to="/"
             >
-             Loker APK
+            LP
             </Link>
             <button
               className="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
@@ -41,13 +41,13 @@ export default function Navbar(props) {
           <div className="fixed top-4 right-4 lg:static lg:flex lg:items-center lg:justify-end">
             <a
               className="bg-dark text-white active:bg-blueGray-50 text-xs text-dark font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"
-              // href="/login"
+              href="/login"
             >
               <i className="fas fa-arrow-alt-circle-down"></i> Masuk
             </a>
             <a
               className="bg-white text-blueGray-700 active:bg-blueDark-50 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"
-              // href="/registrasi"
+              href="/register"
             >
               <i className="fas fa-arrow-alt-circle-down"></i> Daftar
             </a>
