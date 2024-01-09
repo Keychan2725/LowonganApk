@@ -1,26 +1,60 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import "../src/assets/styles/index.css";
 import "../src/assets/styles/tailwind.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Landing from "../src/Auth/Landing";
-import Index from "./Auth/Index";
-import Login from "./Auth/auth/Login";
-import Register from "./Auth/auth/Register";
-import Profile from "./Auth/Profile";
-import Dashboard from "./Auth/admin/Dashboard";
+import Landing from "./Pages/Landing";
+import Profile from "./Pages/Profile";
+import Settings from "./Pages/Settings";
+import Register from "./Auth/register";
+import Login from "./Auth/login";
+import PrivateHome from "./Router/PrivateHome";
+import PrivateReg from "./Router/PrivateReg";
+import PrivateRoute from "./Router/PrivateRoute";
+import Dashboard from "./Pages/dashboard";
+import Sidebar from "./components/Sidebar/Sidebar";
+import Navbar from "./components/Sidebar/Navbar";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Landing />} />
+          <Route
+            path="/"
+            element={
+              <PrivateHome>
+                <Landing />
+              </PrivateHome>
+            }
+          />
           <Route path="/login" element={<Login />} />
+          <Route path="/sidebar" element={<Sidebar />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/index" element={<Index />} />
+          
+            <Route
+            path="/dashboard"
+            element={
+              <PrivateRoute>
+                <PrivateHome>
+                  <Dashboard />
+                </PrivateHome>
+              </PrivateRoute>
+            }
+          />
+
+          {/* <Route
+            path="/dash"
+            element={
+              <PrivateRoute>
+                <PrivateHome>
+                  <IndexDash />
+                </PrivateHome>
+              </PrivateRoute>
+            }
+          /> */}
           <Route path="/profile" element={<Profile />} />
-          <Route path="/dash" element={<Dashboard />} />
+          <Route path="/settings" element={<Settings />} />
         </Routes>
       </BrowserRouter>
     </div>
