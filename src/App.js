@@ -8,11 +8,12 @@ import Profile from "./Pages/Profile";
 import Settings from "./Pages/Settings";
 import Register from "./Auth/register";
 import Login from "./Auth/login";
-import Register2 from "./Auth/register2";
 import PrivateHome from "./Router/PrivateHome";
 import PrivateReg from "./Router/PrivateReg";
 import PrivateRoute from "./Router/PrivateRoute";
 import Dashboard from "./Pages/dashboard";
+import Sidebar from "./components/Sidebar/Sidebar";
+import Navbar from "./components/Sidebar/Navbar";
 
 function App() {
   return (
@@ -28,16 +29,8 @@ function App() {
             }
           />
           <Route path="/login" element={<Login />} />
+          <Route path="/sidebar" element={<Sidebar />} />
           <Route path="/register" element={<Register />} />
-          <Route
-            path="/register2"
-            element={
-              <PrivateReg>
-                <Register2 />
-              </PrivateReg>
-            }
-          />
-
           
             <Route
             path="/dashboard"

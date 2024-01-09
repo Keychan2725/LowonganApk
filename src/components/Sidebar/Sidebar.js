@@ -2,336 +2,606 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import NotificationDropdown from "../../components/Dropdowns/NotificationDropdown.js";
-import UserDropdown from "../../components/Dropdowns/UserDropdown.js";
+import Logo from "../../assets/img/letter-lp-logo-concept-on-white-background-vector-removebg-preview.png";
+import Navbar from "./Navbar";
 
 export default function Sidebar() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
   return (
     <>
-      <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6">
-        <div className="md:flex-col md:items-stretch md:min-h-full md:flex-nowrap px-0 flex flex-wrap items-center justify-between w-full mx-auto">
-          {/* Toggler */}
-          <button
-            className="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent"
-            type="button"
-            onClick={() => setCollapseShow("bg-white m-2 py-3 px-6")}
-          >
-            <i className="fas fa-bars"></i>
-          </button>
-          {/* Brand */}
-          <Link
-            className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
-            to="/"
-          >
-            Notus React
-          </Link>
-          {/* User */}
-          <ul className="md:hidden items-center flex flex-wrap list-none">
-            <li className="inline-block relative">
-              <NotificationDropdown />
-            </li>
-            <li className="inline-block relative">
-              <UserDropdown />
-            </li>
-          </ul>
-          {/* Collapse */}
-          <div
-            className={
-              "md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:mt-4 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded " +
-              collapseShow
-            }
-          >
-            {/* Collapse header */}
-            <div className="md:min-w-full md:hidden block pb-4 mb-4 border-b border-solid border-blueGray-200">
-              <div className="flex flex-wrap">
-                <div className="w-6/12">
-                  <Link
-                    className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
-                    to="/"
+      <div>
+        <div className="flex-col flex">
+          <div className="w-full border-b-2 border-gray-200">
+            <div className="bg-white h-16 justify-between items-center mx-auto px-4 flex">
+              <button>
+                <img
+                  src="https://res.cloudinary.com/speedwares/image/upload/v1659284687/windframe-logo-main_daes7r.png"
+                  className="block btn- h-8 w-auto"
+                  alt=""
+                />
+              </button>
+              <div className="lg:block mr-auto ml-40 hidden relative max-w-xs">
+                <p className="pl-3 items-center flex absolute inset-y-0 left-0 pointer-events-none">
+                  <span className="justify-center items-center flex">
+                    <span className="justify-center items-center flex">
+                      <span className="items-center justify-center flex">
+                        <svg
+                          className="w-5 h-5 text-gray-400"
+                          fill="none"
+                          viewbox="0 0 24 24"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M21 21l-6-6m2-5a7 7 0
+                      11-14 0 7 7 0 0114 0z"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                  </span>
+                </p>
+                <input
+                  placeholder="Type to search"
+                  type="search"
+                  className="border border-gray-300 focus:ring-indigo-600
+              focus:border-indigo-600 sm:text-sm w-full rounded-lg pt-2 pb-2 pl-10 px-3 py-2"
+                />
+              </div>
+              <div className="md:space-x-6 justify-end items-center ml-auto flex space-x-3">
+                <div className="relative">
+                  <p
+                    className="pt-1 pr-1 pb-1 pl-1 bg-white text-gray-700 rounded-full transition-all duration-200
+                hover:text-gray-900 focus:outline-none hover:bg-gray-100"
                   >
-                    Notus React
-                  </Link>
+                    <span className="items-center justify-center flex">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="1.2rem"
+                        height="1.2rem"
+                        viewbox="0 0 456.147 456.147"
+                        style={{
+                          enableBackground: "new 0 0 456.147 456.147",
+                        }}
+                      >
+                        <g>
+                          <path d="M445.666,4.445c-4.504-4.858-11.756-5.954-17.211-2.19L12.694,290.14c-3.769,2.609-5.878,7.012-5.555,11.586 c0.323,4.574,3.041,8.635,7.139,10.686l95.208,47.607l37.042,86.43c1.78,4.156,5.593,7.082,10.064,7.727 c0.621,0.091,1.242,0.136,1.856,0.136c3.833,0,7.506-1.697,9.989-4.701l38.91-46.994l107.587,52.227 c1.786,0.867,3.725,1.306,5.663,1.306c1.836,0,3.674-0.393,5.384-1.171c3.521-1.604,6.138-4.694,7.146-8.432L448.37,18.128 C449.314,14.629,449.878,8.988,445.666,4.445z M343.154,92.883L116.681,334.604l-71.208-35.603L343.154,92.883z M162.003,416.703 l-27.206-63.48L359.23,113.665L197.278,374.771c-0.836,0.612-1.634,1.305-2.331,2.146L162.003,416.703z M312.148,424.651 l-88.604-43.014L400.427,96.462L312.148,424.651z" />
+                        </g>
+                      </svg>
+                    </span>
+                  </p>
                 </div>
-                <div className="w-6/12 flex justify-end">
-                  <button
-                    type="button"
-                    className="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent"
-                    onClick={() => setCollapseShow("hidden")}
+                <div className="relative">
+                  <p
+                    className="pt-1 pr-1 pb-1 pl-1 bg-white text-gray-700 rounded-full transition-all duration-200
+                hover:text-gray-900 focus:outline-none hover:bg-gray-100"
                   >
-                    <i className="fas fa-times"></i>
-                  </button>
+                    <span className="justify-center items-center flex">
+                      <span className="justify-center items-center flex">
+                        <span className="items-center justify-center flex">
+                          <svg
+                            className="w-6 h-6"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewbox="0 0 24 24"
+                            stroke="currentColor"
+                            stroke-width="2"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4
+                        0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6
+                        0H9"
+                            />
+                          </svg>
+                        </span>
+                      </span>
+                    </span>
+                  </p>
+                  <p
+                    className="px-1.5 py-0.5 font-semibold text-xs items-center bg-indigo-600 text-white rounded-full inline-flex
+                absolute -top-px -right-1"
+                  >
+                    2
+                  </p>
+                </div>
+                <div className="justify-center items-center flex relative">
+                  <img
+                    src="https://static01.nyt.com/images/2019/11/08/world/08quebec/08quebec-superJumbo.jpg"
+                    className="object-cover btn- h-9 w-9 rounded-full mr-2 bg-gray-300"
+                    alt=""
+                  />
+                  <p className="font-semibold text-sm">Marrie Currie</p>
                 </div>
               </div>
             </div>
-            {/* Form */}
-            <form className="mt-6 mb-4 md:hidden">
-              <div className="mb-3 pt-0">
-                <input
-                  type="text"
-                  placeholder="Search"
-                  className="border-0 px-3 py-2 h-12 border border-solid  border-blueGray-500 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal"
-                />
-              </div>
-            </form>
-
-            {/* Divider */}
-            <hr className="my-4 md:min-w-full" />
-            {/* Heading */}
-            <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-              Admin Layout Pages
-            </h6>
-            {/* Navigation */}
-
-            <ul className="md:flex-col md:min-w-full flex flex-col list-none">
-              <li className="items-center">
-                <Link
-                  className={
-                    "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/dashboard") !== -1
-                      ? "text-lightBlue-500 hover:text-lightBlue-600"
-                      : "text-blueGray-700 hover:text-blueGray-500")
-                  }
-                  to="/admin/dashboard"
-                >
-                  <i
-                    className={
-                      "fas fa-tv mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/dashboard") !== -1
-                        ? "opacity-75"
-                        : "text-blueGray-300")
-                    }
-                  ></i>{" "}
-                  Dashboard
-                </Link>
-              </li>
-
-              <li className="items-center">
-                <Link
-                  className={
-                    "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/settings") !== -1
-                      ? "text-lightBlue-500 hover:text-lightBlue-600"
-                      : "text-blueGray-700 hover:text-blueGray-500")
-                  }
-                  to="/admin/settings"
-                >
-                  <i
-                    className={
-                      "fas fa-tools mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/settings") !== -1
-                        ? "opacity-75"
-                        : "text-blueGray-300")
-                    }
-                  ></i>{" "}
-                  Settings
-                </Link>
-              </li>
-
-              <li className="items-center">
-                <Link
-                  className={
-                    "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/tables") !== -1
-                      ? "text-lightBlue-500 hover:text-lightBlue-600"
-                      : "text-blueGray-700 hover:text-blueGray-500")
-                  }
-                  to="/admin/tables"
-                >
-                  <i
-                    className={
-                      "fas fa-table mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/tables") !== -1
-                        ? "opacity-75"
-                        : "text-blueGray-300")
-                    }
-                  ></i>{" "}
-                  Tables
-                </Link>
-              </li>
-
-              <li className="items-center">
-                <Link
-                  className={
-                    "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/maps") !== -1
-                      ? "text-lightBlue-500 hover:text-lightBlue-600"
-                      : "text-blueGray-700 hover:text-blueGray-500")
-                  }
-                  to="/admin/maps"
-                >
-                  <i
-                    className={
-                      "fas fa-map-marked mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/maps") !== -1
-                        ? "opacity-75"
-                        : "text-blueGray-300")
-                    }
-                  ></i>{" "}
-                  Maps
-                </Link>
-              </li>
-            </ul>
-
-            {/* Divider */}
-            <hr className="my-4 md:min-w-full" />
-            {/* Heading */}
-            <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-              Auth Layout Pages
-            </h6>
-            {/* Navigation */}
-
-            <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
-              <li className="items-center">
-                <Link
-                  className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                  to="/auth/login"
-                >
-                  <i className="fas fa-fingerprint text-blueGray-400 mr-2 text-sm"></i>{" "}
-                  Login
-                </Link>
-              </li>
-
-              <li className="items-center">
-                <Link
-                  className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                  to="/auth/register"
-                >
-                  <i className="fas fa-clipboard-list text-blueGray-300 mr-2 text-sm"></i>{" "}
-                  Register
-                </Link>
-              </li>
-            </ul>
-
-            {/* Divider */}
-            <hr className="my-4 md:min-w-full" />
-            {/* Heading */}
-            <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-              No Layout Pages
-            </h6>
-            {/* Navigation */}
-
-            <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
-              <li className="items-center">
-                <Link
-                  className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                  to="/landing"
-                >
-                  <i className="fas fa-newspaper text-blueGray-400 mr-2 text-sm"></i>{" "}
-                  Landing Page
-                </Link>
-              </li>
-
-              <li className="items-center">
-                <Link
-                  className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                  to="/profile"
-                >
-                  <i className="fas fa-user-circle text-blueGray-400 mr-2 text-sm"></i>{" "}
-                  Profile Page
-                </Link>
-              </li>
-            </ul>
-
-            {/* Divider */}
-            <hr className="my-4 md:min-w-full" />
-            {/* Heading */}
-            <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-              Documentation
-            </h6>
-            {/* Navigation */}
-            <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
-              <li className="inline-flex">
-                <a
-                  href="https://www.creative-tim.com/learning-lab/tailwind/react/colors/notus"
-                  target="_blank"
-                  className="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold"
-                >
-                  <i className="fas fa-paint-brush mr-2 text-blueGray-300 text-base"></i>
-                  Styles
-                </a>
-              </li>
-
-              <li className="inline-flex">
-                <a
-                  href="https://www.creative-tim.com/learning-lab/tailwind/react/alerts/notus"
-                  target="_blank"
-                  className="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold"
-                >
-                  <i className="fab fa-css3-alt mr-2 text-blueGray-300 text-base"></i>
-                  CSS Components
-                </a>
-              </li>
-
-              <li className="inline-flex">
-                <a
-                  href="https://www.creative-tim.com/learning-lab/tailwind/angular/overview/notus"
-                  target="_blank"
-                  className="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold"
-                >
-                  <i className="fab fa-angular mr-2 text-blueGray-300 text-base"></i>
-                  Angular
-                </a>
-              </li>
-
-              <li className="inline-flex">
-                <a
-                  href="https://www.creative-tim.com/learning-lab/tailwind/js/overview/notus"
-                  target="_blank"
-                  className="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold"
-                >
-                  <i className="fab fa-js-square mr-2 text-blueGray-300 text-base"></i>
-                  Javascript
-                </a>
-              </li>
-
-              <li className="inline-flex">
-                <a
-                  href="https://www.creative-tim.com/learning-lab/tailwind/nextjs/overview/notus"
-                  target="_blank"
-                  className="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold"
-                >
-                  <i className="fab fa-react mr-2 text-blueGray-300 text-base"></i>
-                  NextJS
-                </a>
-              </li>
-
-              <li className="inline-flex">
-                <a
-                  href="https://www.creative-tim.com/learning-lab/tailwind/react/overview/notus"
-                  target="_blank"
-                  className="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold"
-                >
-                  <i className="fab fa-react mr-2 text-blueGray-300 text-base"></i>
-                  React
-                </a>
-              </li>
-
-              <li className="inline-flex">
-                <a
-                  href="https://www.creative-tim.com/learning-lab/tailwind/svelte/overview/notus"
-                  target="_blank"
-                  className="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold"
-                >
-                  <i className="fas fa-link mr-2 text-blueGray-300 text-base"></i>
-                  Svelte
-                </a>
-              </li>
-
-              <li className="inline-flex">
-                <a
-                  href="https://www.creative-tim.com/learning-lab/tailwind/vue/overview/notus"
-                  target="_blank"
-                  className="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold"
-                >
-                  <i className="fab fa-vuejs mr-2 text-blueGray-300 text-base"></i>
-                  VueJS
-                </a>
-              </li>
-            </ul>
           </div>
         </div>
-      </nav>
+ navbar
+        <div className="bg-white">
+          <div className="flex-col flex">
+            <div className="w-full border-b-2 border-gray-200"></div>
+            <div className="flex bg-gray-100  overflow-x-hidden">
+              <div className="bg-white lg:flex md:w-64 md:flex-col hidden">
+                <div className="flex-col pt-5 flex overflow-y-auto">
+                  <div className="h-full flex-col justify-between px-4 flex">
+                    <div className="space-y-4">
+                      <div className="bg-top bg-cover space-y-1">
+                        <a
+                          href="#"
+                          className="font-medium text-sm items-center rounded-lg text-gray-900 px-4 py-2.5 flex
+                    transition-all duration-200 hover:bg-gray-200 group cursor-pointer"
+                        >
+                          <span className="justify-center items-center flex">
+                            <span className="justify-center items-center flex">
+                              <span className="justify-center items-center flex">
+                                <span className="items-center justify-center flex">
+                                  <svg
+                                    className="flex-shrink-0 w-5 h-5 mr-4"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewbox="0 0 24 24"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                  >
+                                    <path
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1
+                              1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                                    />
+                                  </svg>
+                                </span>
+                              </span>
+                            </span>
+                          </span>
+                          <span>Dashboard</span>
+                        </a>
+                        <a
+                          href="#"
+                          className="font-medium text-sm items-center rounded-lg text-gray-900 px-4 py-2.5 block
+                    transition-all duration-200 hover:bg-gray-200 group cursor-pointer"
+                        >
+                          <span className="justify-center items-center flex">
+                            <span className="justify-center items-center flex">
+                              <span className="justify-center items-center flex">
+                                <span className="items-center justify-center flex">
+                                  <svg
+                                    className="mr-4"
+                                    width="24"
+                                    height="24"
+                                    viewbox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  />
+                                  <path
+                                    d="M17 9L13.9558 13.5662C13.5299 14.2051 12.5728
+                              14.1455 12.2294 13.4587L11.7706 12.5413C11.4272 11.8545 10.4701 11.7949 10.0442 12.4338L7
+                              17"
+                                    stroke="#4F4F4F"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                  />
+                                  <svg
+                                    x="3"
+                                    y="3"
+                                    width="18"
+                                    height="18"
+                                    rx="2"
+                                    stroke="#4F4F4F"
+                                    stroke-width="2"
+                                  ></svg>
+                                </span>
+                              </span>
+                            </span>
+                          </span>
+                          <span>About</span>
+                        </a>
+                        <a
+                          href="#"
+                          className="font-medium text-sm items-center rounded-lg text-gray-900 px-4 py-2.5 flex
+                    transition-all duration-200 hover:bg-gray-200 group cursor-pointer"
+                        >
+                          <span className="justify-center items-center flex">
+                            <span className="justify-center items-center flex">
+                              <span className="justify-center items-center flex">
+                                <span className="items-center justify-center flex">
+                                  <svg
+                                    className="mr-4"
+                                    width="24"
+                                    height="24"
+                                    viewbox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  />
+                                  <path
+                                    d="M8 10L8 16"
+                                    stroke="#4F4F4F"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                  />
+                                  <path
+                                    d="M12 12V16"
+                                    stroke="#4F4F4F"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                  />
+                                  <path
+                                    d="M16 8V16"
+                                    stroke="#4F4F4F"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                  />
+                                  <svg
+                                    x="3"
+                                    y="4"
+                                    width="18"
+                                    height="16"
+                                    rx="2"
+                                    stroke="#4F4F4F"
+                                    stroke-width="2"
+                                  ></svg>
+                                </span>
+                              </span>
+                            </span>
+                          </span>
+                          <span>Hero</span>
+                        </a>
+                      </div>
+                      <div>
+                        <p className="px-4 font-semibold text-xs tracking-widest text-gray-400 uppercase">
+                          Data
+                        </p>
+                        <div className="mt-4 bg-top bg-cover space-y-1">
+                          <a
+                            href="#"
+                            className="font-medium text-sm items-center rounded-lg text-gray-900 px-4 py-2.5 block
+                      transition-all duration-200 hover:bg-gray-200 group cursor-pointer"
+                          >
+                            <span className="justify-center items-center flex">
+                              <span className="justify-center items-center flex">
+                                <span className="justify-center items-center flex">
+                                  <span className="items-center justify-center flex">
+                                    <svg
+                                      className="mr-4"
+                                      width="24"
+                                      height="24"
+                                      viewbox="0 0 24 24"
+                                      fill="none"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <ellipse
+                                        cx="12"
+                                        cy="7"
+                                        rx="7"
+                                        ry="3"
+                                        stroke="#4F4F4F"
+                                        stroke-width="2"
+                                      />
+                                    </svg>
+                                  </span>
+                                </span>
+                              </span>
+                            </span>
+                            <span>Folders</span>
+                          </a>
+                          <a
+                            href="#"
+                            className="font-medium text-sm items-center rounded-lg text-gray-900 px-4 py-2.5 block
+                      transition-all duration-200 hover:bg-gray-200 group cursor-pointer"
+                          >
+                            <span className="justify-center items-center flex">
+                              <span className="justify-center items-center flex">
+                                <span className="justify-center items-center flex">
+                                  <span className="items-center justify-center flex">
+                                    <svg
+                                      className="mr-4"
+                                      width="24"
+                                      height="24"
+                                      viewbox="0 0 24 24"
+                                      fill="none"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    />
+                                    <path
+                                      d="M6.90112 11.8461C7.55156 9.56955 9.63235 8
+                                12 8V8C14.3676 8 16.4484 9.56954 17.0989 11.8461L17.6571 13.7998C17.8843 14.5951 18.2336
+                                15.3504 18.6924 16.0386L18.8012 16.2018C18.9408 16.4111 19.0105 16.5158 19.045
+                                16.5932C19.3105 17.1894 18.943 17.8759 18.2997 17.9857C18.2162 18 18.0904 18 17.8388
+                                18H6.16116C5.90958 18 5.78379 18 5.70027 17.9857C5.05697 17.8759 4.68952 17.1894 4.955
+                                16.5932C4.98947 16.5158 5.05924 16.4111 5.19879 16.2018L5.30758 16.0386C5.76642 15.3504
+                                6.11569 14.5951 6.34293 13.7998L6.90112 11.8461Z"
+                                      fill="#4F4F4F"
+                                    />
+                                    <path
+                                      d="M11 9L12 3"
+                                      stroke="#4F4F4F"
+                                      stroke-width="2"
+                                      stroke-linecap="round"
+                                    />
+                                    <path
+                                      d="M13 9L12 3"
+                                      stroke="#4F4F4F"
+                                      stroke-width="2"
+                                      stroke-linecap="round"
+                                    />
+                                    <path
+                                      d="M12.5 21H11.5"
+                                      stroke="#4F4F4F"
+                                      stroke-width="2"
+                                      stroke-linecap="round"
+                                    />
+                                  </span>
+                                </span>
+                              </span>
+                            </span>
+                            <span>Alerts</span>
+                          </a>
+                          <a
+                            href="#"
+                            className="font-medium text-sm items-center rounded-lg text-gray-900 px-4 py-2.5 flex
+                      transition-all duration-200 hover:bg-gray-200 group cursor-pointer"
+                          >
+                            <span className="justify-center items-center flex">
+                              <span className="justify-center items-center flex">
+                                <span className="justify-center items-center flex">
+                                  <span className="items-center justify-center flex">
+                                    <svg
+                                      className="flex-shrink-0 w-5 h-5 mr-4"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      fill="none"
+                                      viewbox="0 0 24 24"
+                                      stroke="currentColor"
+                                      stroke-width="2"
+                                    >
+                                      <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2
+                                2 0 00-2 2v12a2 2 0 002 2z"
+                                      />
+                                    </svg>
+                                  </span>
+                                </span>
+                              </span>
+                            </span>
+                            <span>Statistics</span>
+                            <span
+                              className="px-2 py-0.5 items-center font-semibold text-xs ml-auto bg-indigo-50 text-indigo-600
+                        rounded-full uppercase border border-indigo-300 inline-flex"
+                            >
+                              New
+                            </span>
+                          </a>
+                        </div>
+                      </div>
+                      <div>
+                        <p className="px-4 font-semibold text-xs tracking-widest text-gray-400 uppercase">
+                          Contact
+                        </p>
+                        <div className="mt-4 bg-top bg-cover space-y-1">
+                          <a
+                            href="#"
+                            className="font-medium text-sm items-center rounded-lg text-gray-900 px-4 py-2.5 flex
+                      transition-all duration-200 hover:bg-gray-200 group cursor-pointer"
+                          >
+                            <span className="justify-center items-center flex">
+                              <span className="justify-center items-center flex">
+                                <span className="justify-center items-center flex">
+                                  <span className="items-center justify-center flex">
+                                    <svg
+                                      className="flex-shrink-0 w-5 h-5 mr-4"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      fill="none"
+                                      viewbox="0 0 24 24"
+                                      stroke="currentColor"
+                                      stroke-width="2"
+                                    />
+                                    <path
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0
+                                002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0
+                                012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                                    />
+                                  </span>
+                                </span>
+                              </span>
+                            </span>
+                            <span>Forms</span>
+                            <span
+                              className="px-2 py-0.5 items-center font-semibold text-xs ml-auto bg-gray-500 text-white
+                        rounded-full uppercase border border-transparent inline-flex"
+                            >
+                              15
+                            </span>
+                          </a>
+                          <a
+                            href="#"
+                            className="font-medium text-sm items-center rounded-lg text-gray-900 px-4 py-2.5 flex
+                      transition-all duration-200 hover:bg-gray-200 group cursor-pointer"
+                          >
+                            <span className="justify-center items-center flex">
+                              <span className="justify-center items-center flex">
+                                <span className="justify-center items-center flex">
+                                  <span className="items-center justify-center flex">
+                                    <svg
+                                      className="mr-4"
+                                      width="24"
+                                      height="24"
+                                      viewbox="0 0 24 24"
+                                      fill="none"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    />
+                                    <circle
+                                      cx="12"
+                                      cy="12"
+                                      r="10"
+                                      stroke="#4F4F4F"
+                                      stroke-width="2"
+                                      stroke-linecap="round"
+                                    />
+                                    <path
+                                      d="M7.88124 15.7559C8.37391 16.1826
+                                9.02309 16.4909 9.72265 16.6928C10.4301 16.897 11.2142 17 12 17C12.7858 17 13.5699
+                                16.897 14.2774 16.6928C14.9769 16.4909 15.6261 16.1826 16.1188 15.7559"
+                                      stroke="#4F4F4F"
+                                      stroke-width="2"
+                                      stroke-linecap="round"
+                                    />
+                                    <circle
+                                      cx="9"
+                                      cy="10"
+                                      r="1.25"
+                                      fill="#4F4F4F"
+                                      stroke="#4F4F4F"
+                                      stroke-width="0.5"
+                                      stroke-linecap="round"
+                                    />
+                                    <circle
+                                      cx="15"
+                                      cy="10"
+                                      r="1.25"
+                                      fill="#4F4F4F"
+                                      stroke="#4F4F4F"
+                                      stroke-width="0.5"
+                                      stroke-linecap="round"
+                                    />
+                                  </span>
+                                </span>
+                              </span>
+                            </span>
+                            <span>Agents</span>
+                          </a>
+                          <a
+                            href="#"
+                            className="font-medium text-sm items-center rounded-lg text-gray-900 px-4 py-2.5 flex
+                      transition-all duration-200 hover:bg-gray-200 group cursor-pointer"
+                          >
+                            <span className="justify-center items-center flex">
+                              <span className="justify-center items-center flex">
+                                <span className="justify-center items-center flex">
+                                  <span className="items-center justify-center flex">
+                                    <svg
+                                      className="flex-shrink-0 w-5 h-5 mr-4"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      fill="none"
+                                      viewbox="0 0 24 24"
+                                      stroke="currentColor"
+                                      stroke-width="2"
+                                    />
+                                    <path
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0
+                                0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+                                    />
+                                  </span>
+                                </span>
+                              </span>
+                            </span>
+                            <span>Customers</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="mt-12 pb-4">
+                      <div className="bg-top bg-cover space-y-1">
+                        <a
+                          href="#"
+                          className="font-medium text-sm items-center rounded-lg text-gray-900 px-4 py-2.5 flex
+                    transition-all duration-200 hover:bg-gray-200 group cursor-pointer"
+                        >
+                          <span className="justify-center items-center flex">
+                            <span className="justify-center items-center flex">
+                              <span className="justify-center items-center flex">
+                                <span className="items-center justify-center flex">
+                                  <svg
+                                    className="flex-shrink-0 w-5 h-5 mr-4"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewbox="0 0 24 24"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                  />
+                                  <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0
+                              002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756
+                              2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0
+                              00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0
+                              00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0
+                              00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0
+                              001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                                  />
+                                  <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016
+                              0z"
+                                  />
+                                </span>
+                              </span>
+                            </span>
+                          </span>
+                          <span>Settings</span>
+                        </a>
+                        <a
+                          href="#"
+                          className="font-medium text-sm items-center rounded-lg text-gray-900 px-4 py-2.5 flex
+                    transition-all duration-200 hover:bg-gray-200 group cursor-pointer"
+                        >
+                          <span className="justify-center items-center flex">
+                            <span className="justify-center items-center flex">
+                              <span className="justify-center items-center flex">
+                                <span className="items-center justify-center flex">
+                                  <svg
+                                    className="mr-4"
+                                    width="24"
+                                    height="24"
+                                    viewbox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  />
+                                  <path
+                                    d="M8 18.9282C9.21615 19.6303 10.5957 20 12
+                              20C13.4043 20 14.7838 19.6303 16 18.9282C17.2162 18.2261 18.2261 17.2162 18.9282
+                              16C19.6303 14.7838 20 13.4043 20 12C20 10.5957 19.6303 9.21615 18.9282 8C18.2261 6.78385
+                              17.2162 5.77394 16 5.0718C14.7838 4.36965 13.4043 4 12 4C10.5957 4 9.21615 4.36965 8
+                              5.0718"
+                                    stroke="#4F4F4F"
+                                    stroke-width="2"
+                                  />
+                                  <path
+                                    d="M2 12L1.21913 11.3753L0.719375
+                              12L1.21913 12.6247L2 12ZM11 13C11.5523 13 12 12.5523 12 12C12 11.4477 11.5523 11 11
+                              11V13ZM5.21913 6.3753L1.21913 11.3753L2.78087 12.6247L6.78087 7.6247L5.21913
+                              6.3753ZM1.21913 12.6247L5.21913 17.6247L6.78087 16.3753L2.78087 11.3753L1.21913 12.6247ZM2
+                              13H11V11H2V13Z"
+                                    fill="#4F4F4F"
+                                  />
+                                </span>
+                              </span>
+                            </span>
+                          </span>
+                          <span>Logout</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
