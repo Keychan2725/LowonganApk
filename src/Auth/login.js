@@ -3,11 +3,13 @@ import React, { useState } from "react";
 import Swal from "sweetalert2";
 import { TEInput, TERipple } from "tw-elements-react";
 import Logo from "../assets/img/letter-lp-logo-concept-on-white-background-vector-removebg-preview.png";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [passwordType, setPasswordType] = useState("password");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const login = async (e) => {
     e.preventDefault();
@@ -26,7 +28,7 @@ export default function Login() {
         icon: "success",
         title: "Berhasil masuk",
       });
-      window.location.href = "/dashboard ";
+    navigate("/dashboard");
     } catch (error) {
       Swal.fire({
         position: "center",

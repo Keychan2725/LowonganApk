@@ -13,9 +13,13 @@ import PrivateReg from "./Router/PrivateReg";
 import PrivateRoute from "./Router/PrivateRoute";
 import Dashboard from "./Pages/dashboard";
 import Sidebar from "./components/Sidebar/Sidebar";
-import Navbar from "./components/Sidebar/Navbar";
+import { initFlowbite } from "flowbite";
 
 function App() {
+
+  useEffect(() => {
+    initFlowbite();
+  }, []);
   return (
     <div className="App">
       <BrowserRouter>
@@ -38,6 +42,16 @@ function App() {
               <PrivateRoute>
                 <PrivateHome>
                   <Dashboard />
+                </PrivateHome>
+              </PrivateRoute>
+            }
+          />
+            <Route
+            path="/akun"
+            element={
+              <PrivateRoute>
+                <PrivateHome>
+                  <Settings />
                 </PrivateHome>
               </PrivateRoute>
             }
