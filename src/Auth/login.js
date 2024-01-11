@@ -28,7 +28,7 @@ export default function Login() {
         icon: "success",
         title: "Berhasil masuk",
       });
-    navigate("/dashboard");
+    window.location.href = "/dashboard";
     } catch (error) {
       Swal.fire({
         position: "center",

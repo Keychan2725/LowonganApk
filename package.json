@@ -10,6 +10,7 @@
     "axios": "^1.6.4",
     "chart.js": "^4.4.1",
     "chartjs-plugin-datalabels": "^2.2.0",
+    "firebase": "^10.7.1",
     "flowbite-react": "^0.7.2",
     "preline": "^2.0.3",
     "react": "^18.2.0",

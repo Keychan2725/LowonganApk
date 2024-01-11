@@ -14,6 +14,7 @@ import PrivateRoute from "./Router/PrivateRoute";
 import Dashboard from "./Pages/dashboard";
 import Sidebar from "./components/Sidebar/Sidebar";
 import { initFlowbite } from "flowbite";
+import EditAkun from "./Aksi/EditAkun";
 
 function App() {
 
@@ -52,6 +53,16 @@ function App() {
               <PrivateRoute>
                 <PrivateHome>
                   <Settings />
+                </PrivateHome>
+              </PrivateRoute>
+            }
+          />
+            <Route
+            path="/editAkun"
+            element={
+              <PrivateRoute>
+                <PrivateHome>
+                  <EditAkun />
                 </PrivateHome>
               </PrivateRoute>
             }
