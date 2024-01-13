@@ -1,17 +1,18 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
- 
-
 export default function CardProfile() {
-  const id =localStorage.getItem("userId");
+  const id = localStorage.getItem("userId");
   const AuthToken = localStorage.getItem("token");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [imgUser, setImgUser] = useState("");
   const [usia, setUsia] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
 
   const [agama, setAgama] = useState("");
   const [namaLengkap, setNamaLengkap] = useState("");
@@ -45,7 +46,6 @@ export default function CardProfile() {
     }
   };
 
-  
   const getDataUser = async () => {
     try {
       if (!id || id === null || id === undefined) {
@@ -53,7 +53,6 @@ export default function CardProfile() {
         return;
       }
 
-      // Assuming you have a function to retrieve the authentication token
       const token = await AuthToken;
       const response = await axios.get(
         `http://localhost:8080/api/identitasUsers/${id}`,
@@ -81,6 +80,39 @@ export default function CardProfile() {
       });
     }
   };
+  function handleDeleteImage() {
+    Swal.fire({
+      title: "Yakin ingin menghapus Foto ?",
+      text: "Tindakan ini dapat dibatalkan!",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#dc3545",
+      cancelButtonColor: "#29b6f6",
+      confirmButtonText: "Ya, hapus Foto ?",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete( `http://localhost:8080/api/user/delete-image/${id}`)
+          .then((response) => {
+            Swal.fire({
+              icon: "success",
+              title: "Foto berhasil dihapus!",
+              text: response.data,
+            });
+            window.location.reload();
+          })
+          .catch((error) => {
+            Swal.fire({
+              icon: "error",
+              title: "Gagal menghapus Foto !",
+              text:
+                error.response.data.message ||
+                "Terjadi kesalahan saat menghapus Foto",
+            });
+          });
+      }
+    });
+  }
   useEffect(() => {
     getDataUser();
     getAkun();
@@ -94,25 +126,29 @@ export default function CardProfile() {
               <div className="relative">
                 <img
                   alt="Foto Profile"
-                  className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px"
-                  src={imgUser === null ? "https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg" : imgUser}
+                  className={`shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px ${
+                    imgUser === null ? "rounded-full" : ""
+                  }`}
+                  src={
+                    imgUser === null
+                      ? "https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg"
+                      : imgUser
+                  }
                 />
               </div>
             </div>
-           
           </div>
           <div className="text-center my-24">
-            <h3 className="text-xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2" >
-            {username === null ? "Username Kosong":username }
-          
+            <h3 className="text-xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">
+              {username === null ? "Username Kosong" : username}
             </h3>
             <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
               <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>{" "}
-            {alamatRumah === null ? "Alamat Kosong ":alamatRumah} 
+              {alamatRumah === null ? "Alamat Kosong " : alamatRumah}
             </div>
             <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
               <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>{" "}
-            {noTelepom === null ? "Nomer  Kosong ":noTelepom} 
+              {noTelepom === null ? "Nomer  Kosong " : noTelepom}
             </div>
             <div className="mb-2 text-blueGray-600 mt-10">
               <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
@@ -123,7 +159,14 @@ export default function CardProfile() {
               University of Computer Science
             </div>
           </div>
-       
+          {imgUser !== null && (
+            <button
+              className="w-auto h-auto absolute bottom-0 right-0 bg-red-500 hover:bg-red-700 text-white font-bold mb-2 mr-2 py-2 px-4 rounded"
+              onClick={() => handleDeleteImage()}
+            >
+              Hapus Foto
+            </button>
+          )}
         </div>
       </div>
     </>
