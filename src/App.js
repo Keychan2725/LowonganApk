@@ -13,9 +13,16 @@ import PrivateReg from "./Router/PrivateReg";
 import PrivateRoute from "./Router/PrivateRoute";
 import Dashboard from "./Pages/dashboard";
 import Sidebar from "./components/Sidebar/Sidebar";
-import Navbar from "./components/Sidebar/Navbar";
+import { initFlowbite } from "flowbite";
+import EditAkun from "./Aksi/EditAkun";
+import CariPegawai from "./Pages/pegawai/CariPegawai";
+import CariPekerjaan from "./Pages/pekerjaan/CariPekerjaan";
 
 function App() {
+
+  useEffect(() => {
+    initFlowbite();
+  }, []);
   return (
     <div className="App">
       <BrowserRouter>
@@ -42,17 +49,47 @@ function App() {
               </PrivateRoute>
             }
           />
-
-          {/* <Route
-            path="/dash"
+            <Route
+            path="/akun"
             element={
               <PrivateRoute>
                 <PrivateHome>
-                  <IndexDash />
+                  <Settings />
                 </PrivateHome>
               </PrivateRoute>
             }
-          /> */}
+          />
+            <Route
+            path="/editAkun"
+            element={
+              <PrivateRoute>
+                <PrivateHome>
+                  <EditAkun />
+                </PrivateHome>
+              </PrivateRoute>
+            }
+          />
+            <Route
+            path="/cari-pegawai"
+            element={
+              <PrivateRoute>
+                <PrivateHome>
+                  <CariPegawai />
+                </PrivateHome>
+              </PrivateRoute>
+            }
+          />
+            <Route
+            path="/cari-pekerjaan"
+            element={
+              <PrivateRoute>
+                <PrivateHome>
+                  <CariPekerjaan />
+                </PrivateHome>
+              </PrivateRoute>
+            }
+          />
+ 
           <Route path="/profile" element={<Profile />} />
           <Route path="/settings" element={<Settings />} />
         </Routes>
