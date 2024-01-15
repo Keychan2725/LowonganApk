@@ -15,6 +15,8 @@ import Dashboard from "./Pages/dashboard";
 import Sidebar from "./components/Sidebar/Sidebar";
 import { initFlowbite } from "flowbite";
 import EditAkun from "./Aksi/EditAkun";
+import CariPegawai from "./Pages/pegawai/CariPegawai";
+import CariPekerjaan from "./Pages/pekerjaan/CariPekerjaan";
 
 function App() {
 
@@ -67,17 +69,27 @@ function App() {
               </PrivateRoute>
             }
           />
-
-          {/* <Route
-            path="/dash"
+            <Route
+            path="/cari-pegawai"
             element={
               <PrivateRoute>
                 <PrivateHome>
-                  <IndexDash />
+                  <CariPegawai />
                 </PrivateHome>
               </PrivateRoute>
             }
-          /> */}
+          />
+            <Route
+            path="/cari-pekerjaan"
+            element={
+              <PrivateRoute>
+                <PrivateHome>
+                  <CariPekerjaan />
+                </PrivateHome>
+              </PrivateRoute>
+            }
+          />
+ 
           <Route path="/profile" element={<Profile />} />
           <Route path="/settings" element={<Settings />} />
         </Routes>

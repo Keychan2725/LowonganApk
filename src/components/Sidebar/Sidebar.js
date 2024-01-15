@@ -31,7 +31,7 @@ export default function Sidebar() {
       setPassword(dataUser.data.password);
       setUsername(dataUser.data.username);
       setUsia(dataUser.data.usia);
-      setImgUser(dataUser.data.usia);
+      setImgUser(dataUser.data.imgUser);
     } catch (error) {
       console.error("Error fetching data:", error);
       Swal.fire({
@@ -206,7 +206,7 @@ export default function Sidebar() {
           <ul className="space-y-2 font-medium">
             <li>
               <a
-                href="#"
+                href="/dashboard"
                 className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-800 hover:text-white group"
               >
                 <svg
@@ -229,7 +229,7 @@ export default function Sidebar() {
             </li>
             <li>
               <a
-                href="#"
+                href="/cari-pekerjaan"
                 className="flex items-center p-2 text-gray-900 rounded-lg   hover:bg-gray-800 hover:text-white group"
               >
                 <svg
@@ -252,7 +252,7 @@ export default function Sidebar() {
             </li>
             <li>
               <a
-                href="#"
+                href="/cari-pegawai"
                 className="flex items-center p-2 text-gray-900 rounded-lg   hover:bg-gray-800 hover:text-white group"
               >
                 <svg
@@ -296,7 +296,7 @@ export default function Sidebar() {
                 <span className="ms-3">Notifikasi</span>
               </a>
             </li>
-            <li>
+            {/* <li>
               <a
                 href="#"
                 className="flex items-center p-2 text-gray-900 rounded-lg   hover:bg-gray-800 hover:text-white group"
@@ -318,7 +318,7 @@ export default function Sidebar() {
                 </svg>
                 <span className="ms-3">Data Diri</span>
               </a>
-            </li>
+            </li> */}
             <li>
               <a
                 href="/akun"
