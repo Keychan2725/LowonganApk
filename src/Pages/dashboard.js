@@ -22,7 +22,7 @@ export default function Dashboard() {
                     <div className="inline-block px-3 mb-1 relative">
                   <img src="" className="w-64 h-64 max-w-xs overflow-hidden rounded-lg shadow-md " />
                       <p>Bekerja di PT Indofood</p>
-                  <button className="w-24 h-8 rounded-lg text-white my-5 justify-self-end bg-lime-400 hover:bg-gray-100 hover:text-dark ">
+                  <button className="w-24 h-8 rounded-lg text-white my-5 justify-self-end bg-lime-400 hover:bg-gray-300 hover:text-dark ">
                         Melamar
                       </button>
                     </div>
@@ -40,7 +40,7 @@ export default function Dashboard() {
                     <div className="inline-block px-3 mb-1 relative">
                   <img src="" className="w-64 h-64 max-w-xs overflow-hidden rounded-lg shadow-md " />
                       <p>Mencari Perusahan minyak</p>
-                  <button className="w-24 h-8 rounded-lg text-white my-5 justify-self-end bg-lime-400 hover:bg-gray-100 hover:text-dark ">
+                  <button className="w-24 h-8 rounded-lg text-white my-5 justify-self-end bg-lime-400 hover:bg-gray-300 hover:text-dark ">
                         Rekrut
                       </button>
                     </div>

@@ -28,7 +28,7 @@ export default function Landing() {
               <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
                 <div className="pr-12">
                   <h1 className="text-white font-semibold text-2xl ">
-                    Cari Pekerjaan Dan Pekerja
+                    Cari Pekerjaan Dan Pegawai
                   </h1>
                 </div>
               </div>
@@ -82,10 +82,10 @@ export default function Landing() {
                       <i className="fas fa-retweet"></i>
                     </div>
                     <h6 className="text-xl font-semibold">
-                      Peluang Mencari Pekerja
+                      Peluang Mencari Pegawai
                     </h6>
                     <p className="mt-2 mb-4 text-blueGray-500">
-                      Di APLIKASI ini juga kita bisa mencari pekerja untuk
+                      Di APLIKASI ini juga kita bisa mencari pegawai untuk bekerja di
                       perusahan industri maupun usaha sendiri
                     </p>
                   </div>
