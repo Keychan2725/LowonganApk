@@ -17,6 +17,9 @@ import { initFlowbite } from "flowbite";
 import EditAkun from "./Aksi/EditAkun";
 import CariPegawai from "./Pages/pegawai/CariPegawai";
 import CariPekerjaan from "./Pages/pekerjaan/CariPekerjaan";
+import LamarPekerjaan from "./Aksi/LamarPekerjaan";
+import RekrutPegawai from "./Aksi/RekrutPegawai";
+import Notifikasi from "./Pages/notifikasi/Notifikasi";
 
 function App() {
 
@@ -85,6 +88,36 @@ function App() {
               <PrivateRoute>
                 <PrivateHome>
                   <CariPekerjaan />
+                </PrivateHome>
+              </PrivateRoute>
+            }
+          />
+            <Route
+            path="/lamar-pekerjaan"
+            element={
+              <PrivateRoute>
+                <PrivateHome>
+                  <LamarPekerjaan />
+                </PrivateHome>
+              </PrivateRoute>
+            }
+          />
+            <Route
+            path="/rekrut-pegawai"
+            element={
+              <PrivateRoute>
+                <PrivateHome>
+                  <RekrutPegawai />
+                </PrivateHome>
+              </PrivateRoute>
+            }
+          />
+            <Route
+            path="/notifikasi"
+            element={
+              <PrivateRoute>
+                <PrivateHome>
+                  <Notifikasi />
                 </PrivateHome>
               </PrivateRoute>
             }
