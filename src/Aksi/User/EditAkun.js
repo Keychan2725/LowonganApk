@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import Sidebar from "../components/Sidebar/Sidebar";
+import Sidebar from "../../components/Sidebar/Sidebar";
 // components
 
 export default function EditAkun() {
@@ -294,13 +294,12 @@ export default function EditAkun() {
   return (
     <>
       <Sidebar />
-      <div  className="  my-5 mt-24   ">
+      <div className="  my-5 mt-24   ">
         <div className="flex justify-center">
           <main className="s-content w-[400px] md:w-[1125px]    md:px-24 mx-8 ">
             <div className="relative flex flex-col min-w-0 break-words w-full my-6  shadow-lg rounded-lg bg-blueGray-100 border-0">
               <div className="text-center flex justify-between items-center">
                 <div className="flex items-center mx-4 my-5">
-              
                   <h6 className="text-blueGray-700 text-xl font-bold">
                     Edit Akun Saya
                   </h6>

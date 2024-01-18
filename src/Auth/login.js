@@ -10,34 +10,50 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [loginStatus, setLoginStatus] = useState(false);  
 
   const login = async (e) => {
     e.preventDefault();
-
+  
     try {
       const { data } = await axios.post("http://localhost:8080/api/login", {
         email: email,
         password: password,
       });
-
+  
       localStorage.setItem("token", data.data.token);
       localStorage.setItem("role", data.data.data.role);
       localStorage.setItem("userId", data.data.data.id);
+  
     
-      Swal.fire({
+  
+      if (data.data.data.role === "admin") {
+        Swal.fire({
+          icon: "success",
+          title: "Berhasil masuk",
+        });
+        window.location.href = "/dashboardAdmin";
+      } else if (data.data.data.role === "user") {
+
+          Swal.fire({
         icon: "success",
         title: "Berhasil masuk",
       });
-    window.location.href = "/dashboard";
+        window.location.href = "/dashboard";
+      } else {
+        console.error("Invalid role:", data.data.role);
+      }
     } catch (error) {
+      setLoginStatus(false); // Mengubah status login menjadi false
+
       Swal.fire({
         position: "center",
         icon: "warning",
-        title: "Email atau Password yang Anda masukan salah   ",
+        title: "Email atau Password yang Anda masukkan salah",
         showConfirmButton: false,
         timer: 1500,
       });
-      console.log(error);
+      console.error(error);
     }
   };
   const togglePassword = () => {

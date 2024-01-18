@@ -5,24 +5,27 @@ import "../src/assets/styles/tailwind.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Landing from "./Pages/Landing";
 import Profile from "./Pages/Profile";
-import Settings from "./Pages/Settings";
+import Settings from "./Pages/User/Settings";
 import Register from "./Auth/register";
 import Login from "./Auth/login";
 import PrivateHome from "./Router/PrivateHome";
 import PrivateReg from "./Router/PrivateReg";
 import PrivateRoute from "./Router/PrivateRoute";
-import Dashboard from "./Pages/dashboard";
+import Dashboard from "./Pages/User/dashboard";
 import Sidebar from "./components/Sidebar/Sidebar";
 import { initFlowbite } from "flowbite";
-import EditAkun from "./Aksi/EditAkun";
-import CariPegawai from "./Pages/pegawai/CariPegawai";
+import EditAkun from "./Aksi/User/EditAkun";
 import CariPekerjaan from "./Pages/pekerjaan/CariPekerjaan";
-import LamarPekerjaan from "./Aksi/LamarPekerjaan";
-import RekrutPegawai from "./Aksi/RekrutPegawai";
+import LamarPekerjaan from "./Aksi/User/LamarPekerjaan";
 import Notifikasi from "./Pages/notifikasi/Notifikasi";
+import RegisterAdmin from "./Auth/registerAdmin";
+import PrivateSuperAdmin from "./Router/PrivateSuperAdmin";
+import DashboardAdmin from "./Pages/Admin/DashboardAdmin";
+import NotifikasiPelamar from "./Pages/Admin/NotifikasiPelamar";
+import SettingsAdmin from "./Pages/Admin/SettingsAdmin";
+import EditAkunAdmin from "./Aksi/Admin/EditAkunAdmin";
 
 function App() {
-
   useEffect(() => {
     initFlowbite();
   }, []);
@@ -41,8 +44,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/sidebar" element={<Sidebar />} />
           <Route path="/register" element={<Register />} />
-          
-            <Route
+          <Route path="/admin" element={<RegisterAdmin />} />
+
+          <Route
             path="/dashboard"
             element={
               <PrivateRoute>
@@ -52,7 +56,17 @@ function App() {
               </PrivateRoute>
             }
           />
-            <Route
+          <Route
+            path="/dashboardAdmin"
+            element={
+              <PrivateRoute>
+                <PrivateSuperAdmin>
+                  <DashboardAdmin />
+                </PrivateSuperAdmin>
+              </PrivateRoute>
+            }
+          />
+          <Route
             path="/akun"
             element={
               <PrivateRoute>
@@ -62,7 +76,7 @@ function App() {
               </PrivateRoute>
             }
           />
-            <Route
+          <Route
             path="/editAkun"
             element={
               <PrivateRoute>
@@ -72,17 +86,8 @@ function App() {
               </PrivateRoute>
             }
           />
-            <Route
-            path="/cari-pegawai"
-            element={
-              <PrivateRoute>
-                <PrivateHome>
-                  <CariPegawai />
-                </PrivateHome>
-              </PrivateRoute>
-            }
-          />
-            <Route
+
+          <Route
             path="/cari-pekerjaan"
             element={
               <PrivateRoute>
@@ -92,7 +97,7 @@ function App() {
               </PrivateRoute>
             }
           />
-            <Route
+          <Route
             path="/lamar-pekerjaan"
             element={
               <PrivateRoute>
@@ -102,17 +107,8 @@ function App() {
               </PrivateRoute>
             }
           />
-            <Route
-            path="/rekrut-pegawai"
-            element={
-              <PrivateRoute>
-                <PrivateHome>
-                  <RekrutPegawai />
-                </PrivateHome>
-              </PrivateRoute>
-            }
-          />
-            <Route
+
+          <Route
             path="/notifikasi"
             element={
               <PrivateRoute>
@@ -122,7 +118,37 @@ function App() {
               </PrivateRoute>
             }
           />
- 
+          <Route
+            path="/notifikasi-pelamar"
+            element={
+              <PrivateRoute>
+                <PrivateHome>
+                  <NotifikasiPelamar />
+                </PrivateHome>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/akun-admin"
+            element={
+              <PrivateRoute>
+                <PrivateHome>
+                  <SettingsAdmin />
+                </PrivateHome>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/editAkun-admin"
+            element={
+              <PrivateRoute>
+                <PrivateHome>
+                  <EditAkunAdmin />
+                </PrivateHome>
+              </PrivateRoute>
+            }
+          />
+
           <Route path="/profile" element={<Profile />} />
           <Route path="/settings" element={<Settings />} />
         </Routes>

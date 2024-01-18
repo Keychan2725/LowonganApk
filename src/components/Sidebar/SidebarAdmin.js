@@ -1,12 +1,10 @@
-/*eslint-disable*/
 import React, { useEffect, useState } from "react";
-
 import Logo from "../../assets/img/letter-lp-logo-concept-on-white-background-vector-removebg-preview.png";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "axios";
 
-export default function Sidebar() {
+export default function SidebarAdmin() {
   const navigate = useNavigate();
   const id = localStorage.getItem("userId");
   const AuthToken = localStorage.getItem("token");
@@ -97,7 +95,7 @@ export default function Sidebar() {
               <a href="#" className="flex ms-2 md:me-24">
                 <img src={Logo} className="h-12 me-3" alt="FlowBite Logo" />
                 <span className="   self-center text-xl font-semibold sm:text-2xl whitespace-nowrap  ">
-                  {" "}
+                Admin
                 </span>
               </a>
             </div>
@@ -206,7 +204,7 @@ export default function Sidebar() {
           <ul className="space-y-2 font-medium">
             <li>
               <a
-                href="/dashboard"
+                href="/dashboardAdmin"
                 className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-800 hover:text-white group"
               >
                 <svg
@@ -227,55 +225,10 @@ export default function Sidebar() {
                 <span className="ms-3">Dashboard</span>
               </a>
             </li>
+           
             <li>
               <a
-                href="/cari-pekerjaan"
-                className="flex items-center p-2 text-gray-900 rounded-lg   hover:bg-gray-800 hover:text-white group"
-              >
-                <svg
-                  className="w-5 h-5 text-gray-500 transition duration-75 hover:text-white dark:text-gray-400 group-hover:text-white dark:group-hover:text-white"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                  />
-                </svg>
-                <span className="ms-3">Cari Pekerjaan</span>
-              </a>
-            </li>
-            {/* <li>
-              <a
-                href="/cari-pegawai"
-                className="flex items-center p-2 text-gray-900 rounded-lg   hover:bg-gray-800 hover:text-white group"
-              >
-                <svg
-                  className="w-5 h-5 text-gray-500 transition duration-75 hover:text-white dark:text-gray-400 group-hover:text-white dark:group-hover:text-white"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4.333 6.764a3 3 0 1 1 3.141-5.023M2.5 16H1v-2a4 4 0 0 1 4-4m7.379-8.121a3 3 0 1 1 2.976 5M15 10a4 4 0 0 1 4 4v2h-1.761M13 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-4 6h2a4 4 0 0 1 4 4v2H5v-2a4 4 0 0 1 4-4Z"
-                  />
-                </svg>
-                <span className="ms-3">Cari Pegawai</span>
-              </a>
-            </li> */}
-            <li>
-              <a
-                href="#"
+                href="notifikasi-pelamar"
                 className="flex items-center p-2 text-gray-900 rounded-lg   hover:bg-gray-800 hover:text-white group"
               >
                 <svg
@@ -293,35 +246,12 @@ export default function Sidebar() {
                     d="M8 3.464V1.1m0 2.365a5.338 5.338 0 0 1 5.133 5.368v1.8c0 2.386 1.867 2.982 1.867 4.175C15 15.4 15 16 14.462 16H1.538C1 16 1 15.4 1 14.807c0-1.193 1.867-1.789 1.867-4.175v-1.8A5.338 5.338 0 0 1 8 3.464ZM4.54 16a3.48 3.48 0 0 0 6.92 0H4.54Z"
                   />
                 </svg>
-                <span className="ms-3">Notifikasi</span>
+                <span className="ms-3">Notifikasi Pelamar</span>
               </a>
             </li>
-            {/* <li>
-              <a
-                href="#"
-                className="flex items-center p-2 text-gray-900 rounded-lg   hover:bg-gray-800 hover:text-white group"
-              >
-                <svg
-                  className="w-5 h-5 text-gray-500 transition duration-75 hover:text-white dark:text-gray-400 group-hover:text-white dark:group-hover:text-white"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M18 5h1v12a2 2 0 0 1-2 2m0 0a2 2 0 0 1-2-2V2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v15a2 2 0 0 0 2 2h14ZM10 4h2m-2 3h2m-8 3h8m-8 3h8m-8 3h8M4 4h3v3H4V4Z"
-                  />
-                </svg>
-                <span className="ms-3">Data Diri</span>
-              </a>
-            </li> */}
             <li>
               <a
-                href="/akun"
+                href="/akun-admin"
                 className="flex items-center p-2 text-gray-900 rounded-lg   hover:bg-gray-800 hover:text-white group"
               >
                 <svg

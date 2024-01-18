@@ -199,11 +199,10 @@ export default function Landing() {
                     <i className="fas fa-rocket text-xl"></i>
                   </div>
                   <h3 className="text-3xl font-semibold">
-                    Jangan bermalas malasan
+                  Cara Pakai
                   </h3>
                   <p className="mt-4 text-lg leading-relaxed text-blueGray-500">
-                    Kalau kalian ingin berhasil dalam pekerjaan dunia dan
-                    akhirat . Kalian harus terapkan 5M
+               Ada Alurnya
                   </p>
                   <ul className="list-none mt-6">
                     <li className="py-2">
@@ -215,7 +214,7 @@ export default function Landing() {
                         </div>
                         <div>
                           <h4 className="text-blueGray-500">
-                            Memperkokoh pondasi Iman
+                          Melakukan Registrasi 
                           </h4>
                         </div>
                       </div>
@@ -229,7 +228,7 @@ export default function Landing() {
                         </div>
                         <div>
                           <h4 className="text-blueGray-500">
-                            Membekali diri dengan Ilmu
+                       Login
                           </h4>
                         </div>
                       </div>
@@ -243,7 +242,7 @@ export default function Landing() {
                         </div>
                         <div>
                           <h4 className="text-blueGray-500">
-                            Memulai untuk berusaha dan bekerja keras
+Melakukan pelamaran
                           </h4>
                         </div>
                       </div>
@@ -257,7 +256,7 @@ export default function Landing() {
                         </div>
                         <div>
                           <h4 className="text-blueGray-500">
-                            Melakukan pekerajaan dengan Ikhlas
+                      Admin akan menentukan
                           </h4>
                         </div>
                       </div>
@@ -271,8 +270,8 @@ export default function Landing() {
                         </div>
                         <div>
                           <h4 className="text-blueGray-500">
-                            Menyempurnakan dengan Istiqomah{" "}
-                          </h4>
+                          Ketika sudah melamar akan ada notifikasi dari perusahaan tersebut
+                                         </h4>
                         </div>
                       </div>
                     </li>

@@ -1,5 +1,5 @@
 import React from "react";
-import Sidebar from "../components/Sidebar/Sidebar";
+import Sidebar from "../../components/Sidebar/Sidebar";
 import Swal from "sweetalert2";
 
 export default function LamarPekerjaan() {
@@ -36,7 +36,7 @@ export default function LamarPekerjaan() {
                   onClick={() => handleLamar()}
                   className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                 >
-                  Lamar
+                 Kirim
                 </button>
               </div>
               <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
@@ -62,7 +62,7 @@ export default function LamarPekerjaan() {
                           className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                           htmlFor="grid-password"
                         >
-                          Kontak
+                        Email
                         </label>
                         <input className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
                       </div>

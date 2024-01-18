@@ -3,15 +3,16 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-export default function CardProfile() {
+export default function CardProfileAdmin() {
   const id = localStorage.getItem("userId");
   const AuthToken = localStorage.getItem("token");
   const [username, setUsername] = useState("");
+  const [role, setRole] = useState("");
   const [email, setEmail] = useState("");
   const [imgUser, setImgUser] = useState("");
   const [usia, setUsia] = useState("");
-  const [role, setRole] = useState("");
   const [password, setPassword] = useState("");
+  const [lastLogin, setLastLogin] = useState("");
 
   const navigate = useNavigate();
 
@@ -39,6 +40,7 @@ export default function CardProfile() {
       setImgUser(dataUser.data.imgUser);
       setRole(dataUser.data.role);
       setUsia(dataUser.data.usia);
+      setLastLogin(dataUser.data.lastLogin);
     } catch (error) {
       console.error("Error fetching data:", error);
       Swal.fire({
@@ -94,7 +96,7 @@ export default function CardProfile() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete( `http://localhost:8080/api/user/delete-image/${id}`)
+          .delete(`http://localhost:8080/api/user/delete-image/${id}`)
           .then((response) => {
             Swal.fire({
               icon: "success",
@@ -153,11 +155,17 @@ export default function CardProfile() {
               {noTelepom === null ? "Nomer  Kosong " : noTelepom}
             </div>
             <div className="mb-2 text-blueGray-600 mt-10">
-              <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
+              <i className="upercase fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
               {role.toUpperCase()}
-
-            </div>
-        
+            </div>{" "}
+            {/* <div className="mb-2 text-blueGray-600">
+              <i
+                className={`fas fa-${
+                  lastLogin ? "check-circle" : "times-circle"
+                } mr-2 text-lg text-${lastLogin ? "green" : "red"}-400`}
+              ></i>
+              {lastLogin ? "Online" : "Offline"}
+            </div> */}
           </div>
           {imgUser !== null && (
             <button
