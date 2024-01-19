@@ -164,33 +164,39 @@ export default function EditAkunAdmin() {
   const datadiri = async (event) => {
     event.preventDefault();
 
-    await axios
-      .put(`http://localhost:8080/api/identitasUsers/${id} `, {
-        namaLengkap: namaLengkap,
-        tentangSaya: tentangSaya,
-        alamatRumah: alamatRumah,
-        noTelepon: noTelepon,
-        noNik: noNik,
-        noKk: noKk,
-        agama: agama,
-      })
-      .then(() => {
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Edit Berhasil",
-          showConfirmButton: false,
-          timer: 1500,
+
+    const formData = {
+      namaLengkap: namaLengkap,
+      tentangSaya: tentangSaya,
+      alamatRumah: alamatRumah,
+      noTelepon: noTelepon,
+      noNik: noNik,
+      noKk: noKk,
+      agama: agama,
+    }
+ 
+      await axios
+        .post(`http://localhost:8080/api/identitasUsers/add/${id}`, formData)
+        .then(() => {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Edit Berhasil",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          window.location.href = "/akun-admin";
+        })
+        .catch((error) => {
+          Swal.fire({
+            position: "center",
+            icon: "warning",
+            title: "Gagal Merubah Data ",
+          });
         });
-        window.location.href = "/akun-admin";
-      })
-      .catch((error) => {
-        Swal.fire({
-          position: "center",
-          icon: "warning",
-          title: "Gagal Merubah Data ",
-        });
-      });
+    
+
+    
   };
 
   const UsernameChange = (event) => {

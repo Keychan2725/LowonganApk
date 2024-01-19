@@ -24,6 +24,8 @@ import DashboardAdmin from "./Pages/Admin/DashboardAdmin";
 import NotifikasiPelamar from "./Pages/Admin/NotifikasiPelamar";
 import SettingsAdmin from "./Pages/Admin/SettingsAdmin";
 import EditAkunAdmin from "./Aksi/Admin/EditAkunAdmin";
+import TambahPekerjaan from "./Pages/Admin/TambahPekerjaan";
+import Register2 from "./Auth/register2";
 
 function App() {
   useEffect(() => {
@@ -46,6 +48,16 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/admin" element={<RegisterAdmin />} />
 
+          <Route
+            path="/Registrasi-2"
+            element={
+              <PrivateRoute>
+                <PrivateReg>
+                  <Register2 />
+                </PrivateReg>
+              </PrivateRoute>
+            }
+          />
           <Route
             path="/dashboard"
             element={
@@ -144,6 +156,16 @@ function App() {
               <PrivateRoute>
                 <PrivateHome>
                   <EditAkunAdmin />
+                </PrivateHome>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/tambah-pekerjaan"
+            element={
+              <PrivateRoute>
+                <PrivateHome>
+                  <TambahPekerjaan />
                 </PrivateHome>
               </PrivateRoute>
             }

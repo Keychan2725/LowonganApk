@@ -170,7 +170,7 @@ export default function SidebarAdmin() {
                   <ul className="py-1" role="none">
                     <li>
                       <a
-                        href="/akun"
+                        href="/akun-admin"
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-800 dark:hover:text-white"
                         role="menuitem"
                       
@@ -247,6 +247,30 @@ export default function SidebarAdmin() {
                   />
                 </svg>
                 <span className="ms-3">Notifikasi Pelamar</span>
+              </a>
+            </li>
+           
+            <li>
+              <a
+                href="tambah-pekerjaan"
+                className="flex items-center p-2 text-gray-900 rounded-lg   hover:bg-gray-800 hover:text-white group"
+              >
+                <svg
+                  className="w-5 h-5 text-gray-500 transition duration-75 hover:text-white dark:text-gray-400 group-hover:text-white dark:group-hover:text-white"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 16 21"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M8 3.464V1.1m0 2.365a5.338 5.338 0 0 1 5.133 5.368v1.8c0 2.386 1.867 2.982 1.867 4.175C15 15.4 15 16 14.462 16H1.538C1 16 1 15.4 1 14.807c0-1.193 1.867-1.789 1.867-4.175v-1.8A5.338 5.338 0 0 1 8 3.464ZM4.54 16a3.48 3.48 0 0 0 6.92 0H4.54Z"
+                  />
+                </svg>
+                <span className="ms-3">Tambah Pekerjaan</span>
               </a>
             </li>
             <li>
