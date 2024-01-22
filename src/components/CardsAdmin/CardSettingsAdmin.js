@@ -7,7 +7,8 @@ import { useNavigate } from "react-router-dom";
 export default function CardSettingsAdmin() {
   const [currentUrl, setCurrentUrl] = useState("");
   const navigate = useNavigate();
-  const id = localStorage.getItem("userId");
+  const id = localStorage.getItem("id");
+  const userId = localStorage.getItem("userId");
   const AuthToken = localStorage.getItem("token");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -21,7 +22,6 @@ export default function CardSettingsAdmin() {
   const [noTelepom, setNoTelepon] = useState("");
   const [noKK, setNoKK] = useState("");
   const [noNik, setNoNik] = useState("");
-  const [UserId, setUserId] = useState("");
 
   const getAkun = async () => {
     try {
@@ -48,7 +48,7 @@ export default function CardSettingsAdmin() {
 
   const getDataUser = async () => {
     try {
-      if (!id || id === null || id === undefined) {
+      if (!userId || userId === null || userId === undefined) {
         console.error("userId is null or undefined");
         return;
       }
@@ -56,7 +56,7 @@ export default function CardSettingsAdmin() {
       // Assuming you have a function to retrieve the authentication token
       const token = await AuthToken;
       const response = await axios.get(
-        `http://localhost:8080/api/identitasUsers/${id}`,
+        `http://localhost:8080/api/identitasUsers/${userId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -66,13 +66,13 @@ export default function CardSettingsAdmin() {
       );
 
       const dataUser = response.data;
-      setNamaLengkap(dataUser.namaLengkap);
-      setAgama(dataUser.agama);
-      setNoKK(dataUser.noKk);
-      setNoNik(dataUser.noNik);
-      setNoTelepon(dataUser.noTelepon);
-      setAlamatRumah(dataUser.alamatRumah);
-      setTentangSaya(dataUser.tentangSaya);
+      setNamaLengkap(dataUser[0].namaLengkap);
+      setAgama(dataUser[0].agama);
+      setNoKK(dataUser[0].noKk);
+      setNoNik(dataUser[0].noNik);
+      setNoTelepon(dataUser[0].noTelepon);
+      setAlamatRumah(dataUser[0].alamatRumah);
+      setTentangSaya(dataUser[0].tentangSaya);
     } catch (error) {
       console.error("Error fetching data:", error);
       Swal.fire({
@@ -100,12 +100,11 @@ export default function CardSettingsAdmin() {
       <div className="relative flex flex-col min-w-0 break-words w-full my-6 mx-2 shadow-lg rounded-lg bg-blueGray-100 border-0">
         <div className="text-center flex justify-between items-center">
           <div className="flex items-center mx-4 my-5">
-           
             <h6 className="text-blueGray-700 text-xl font-bold">Akun Saya</h6>
           </div>
           <a
             className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-          href={"/editAkun-admin"}
+            href={"/editAkun-admin"}
           >
             Ubah
           </a>
@@ -178,6 +177,7 @@ export default function CardSettingsAdmin() {
                   <input
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     defaultValue={usia}
+                    disabled
                   />
                 </div>
               </div>
@@ -192,6 +192,7 @@ export default function CardSettingsAdmin() {
                   <input
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     defaultValue={agama === null ? "Belum Di isi" : agama}
+                    disabled
                   />
                 </div>
               </div>
@@ -237,6 +238,7 @@ export default function CardSettingsAdmin() {
                         ? "Nomer Telepon Belum Di isi"
                         : noTelepom
                     }
+                    disabled
                   />
                 </div>
               </div>
@@ -304,7 +306,6 @@ export default function CardSettingsAdmin() {
                 </div>
               </div>
             </div>
-            
           </form>
         </div>
       </div>

@@ -12,6 +12,10 @@ export default function Login() {
   const navigate = useNavigate();
   const [loginStatus, setLoginStatus] = useState(false);  
 
+  
+
+ 
+
   const login = async (e) => {
     e.preventDefault();
   
@@ -23,15 +27,14 @@ export default function Login() {
   
       localStorage.setItem("token", data.data.token);
       localStorage.setItem("role", data.data.data.role);
-      localStorage.setItem("userId", data.data.data.id);
-  
-    
-  
+      localStorage.setItem("id", data.data.data.id);
+      localStorage.setItem("userId", data.data.userId);
+ 
       if (data.data.data.role === "admin") {
         Swal.fire({
           icon: "success",
           title: "Berhasil masuk",
-        });
+        });              
         window.location.href = "/dashboardAdmin";
       } else if (data.data.data.role === "user") {
 

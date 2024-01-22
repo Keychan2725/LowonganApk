@@ -3,6 +3,8 @@ import SidebarAdmin from "../../components/Sidebar/SidebarAdmin";
 import Swal from "sweetalert2";
 import axios from "axios";
 import ReactPaginate from "react-paginate";
+import emailjs from 'emailjs-com';
+
 
 export default function NotifikasiPelamar() {
   const [users, setUsers] = useState([]);
@@ -15,7 +17,7 @@ export default function NotifikasiPelamar() {
 
   const getAll = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/users`);
+      const response = await axios.get(`http://localhost:8080/api/user/all`);
       setUsers(response.data);
       setFilteredUsers(response.data);
     } catch (error) {
@@ -98,41 +100,41 @@ export default function NotifikasiPelamar() {
     });
   };
 
-  // const sendEmail = (e) => {
-  //   e.preventDefault();
-  //   emailjs
-  //     .sendForm(
-  //       "service_xj8ktpc",
-  //       "template_bg5lshe",
-  //       form.current,
-  //       "BA_w1mVa2FDtDhetB"
-  //     )
-  //     .then(
-  //       (result) => {
-  //         if (result) {
-  //           Swal.fire({
-  //             position: "center",
-  //             icon: "success",
-  //             title: "Berhasil Dikirim",
-  //             showConfirmButton: false,
-  //             timer: 1500,
-  //           });
-  //           window.location.href = "/ver-registrasi";
-  //         }
-  //       },
-  //       (error) => {
-  //         if (error) {
-  //           Swal.fire({
-  //             position: "center",
-  //             icon: "warning",
-  //             title: "Gagal Dikirim",
-  //             showConfirmButton: false,
-  //             timer: 1500,
-  //           });
-  //         }
-  //       }
-  //     );
-  // };
+  const sendEmail = (e) => {
+    e.preventDefault();
+    emailjs
+      .sendForm(
+        "service_xj8ktpc",
+        "template_bg5lshe",
+        form.current,
+        "BA_w1mVa2FDtDhetB"
+      )
+      .then(
+        (result) => {
+          if (result) {
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Berhasil Dikirim",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            window.location.href = "/notifikasi-pelamar";
+          }
+        },
+        (error) => {
+          if (error) {
+            Swal.fire({
+              position: "center",
+              icon: "warning",
+              title: "Gagal Dikirim",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        }
+      );
+  };
 
   const cariSekolah = (term) => {
     if (term.trim() === "") {
@@ -157,7 +159,7 @@ export default function NotifikasiPelamar() {
   }, []);
 
   const offset = currentPage * itemsPerPage;
-  const paginatedUsers = filteredUsers.slice(offset, offset + itemsPerPage);
+  // const paginatedUsers = filteredUsers.slice(offset, offset + itemsPerPage);
   return (
     <>
       <SidebarAdmin />
@@ -337,6 +339,7 @@ export default function NotifikasiPelamar() {
                   <div className="relative flex-auto">
                     <form
                       ref={form}
+                      onSubmit={sendEmail}
                       className="space-y-4 p-3"
                     >
                       <div>
@@ -347,7 +350,7 @@ export default function NotifikasiPelamar() {
                               type="email"
                               name="email_from"
                               className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                              placeholder="Masukan Email Anda "
+                              placeholder="Masukan Email  "
                               required
                             />
                           </div>

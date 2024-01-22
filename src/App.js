@@ -26,6 +26,10 @@ import SettingsAdmin from "./Pages/Admin/SettingsAdmin";
 import EditAkunAdmin from "./Aksi/Admin/EditAkunAdmin";
 import TambahPekerjaan from "./Pages/Admin/TambahPekerjaan";
 import Register2 from "./Auth/register2";
+import RegistrasiAdmin2 from "./Auth/registerAdmin2";
+import HistoryPekerjaan from "./Pages/Admin/HistoryPekerjaan";
+import UploadFotoPekerjaan from "./Pages/Admin/UploadFotoPekerjaan";
+import PrivateUpload from "./Router/PrivateUpload";
 
 function App() {
   useEffect(() => {
@@ -49,13 +53,11 @@ function App() {
           <Route path="/admin" element={<RegisterAdmin />} />
 
           <Route
-            path="/Registrasi-2"
+            path="/registrasi-2"
             element={
-              <PrivateRoute>
                 <PrivateReg>
                   <Register2 />
                 </PrivateReg>
-              </PrivateRoute>
             }
           />
           <Route
@@ -76,6 +78,16 @@ function App() {
                   <DashboardAdmin />
                 </PrivateSuperAdmin>
               </PrivateRoute>
+            }
+          />
+          <Route
+            path="/register-admin-2"
+            element={
+      
+                <PrivateSuperAdmin>
+                  <RegistrasiAdmin2/>
+                </PrivateSuperAdmin>
+ 
             }
           />
           <Route
@@ -134,9 +146,19 @@ function App() {
             path="/notifikasi-pelamar"
             element={
               <PrivateRoute>
-                <PrivateHome>
+                <PrivateSuperAdmin>
                   <NotifikasiPelamar />
-                </PrivateHome>
+                </PrivateSuperAdmin>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/history-pekerjaan"
+            element={
+              <PrivateRoute>
+                <PrivateSuperAdmin>
+                  <HistoryPekerjaan />
+                </PrivateSuperAdmin>
               </PrivateRoute>
             }
           />
@@ -144,9 +166,9 @@ function App() {
             path="/akun-admin"
             element={
               <PrivateRoute>
-                <PrivateHome>
+                <PrivateSuperAdmin>
                   <SettingsAdmin />
-                </PrivateHome>
+                </PrivateSuperAdmin>
               </PrivateRoute>
             }
           />
@@ -154,9 +176,9 @@ function App() {
             path="/editAkun-admin"
             element={
               <PrivateRoute>
-                <PrivateHome>
+                <PrivateSuperAdmin>
                   <EditAkunAdmin />
-                </PrivateHome>
+                </PrivateSuperAdmin>
               </PrivateRoute>
             }
           />
@@ -164,9 +186,19 @@ function App() {
             path="/tambah-pekerjaan"
             element={
               <PrivateRoute>
-                <PrivateHome>
+                <PrivateSuperAdmin>
                   <TambahPekerjaan />
-                </PrivateHome>
+                </PrivateSuperAdmin>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/uploadFoto-pekerjaan"
+            element={
+              <PrivateRoute>
+                <PrivateSuperAdmin>
+                  <UploadFotoPekerjaan />
+                </PrivateSuperAdmin>
               </PrivateRoute>
             }
           />

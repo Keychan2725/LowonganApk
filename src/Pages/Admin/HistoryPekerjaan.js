@@ -1,38 +1,85 @@
 import React, { useEffect, useState } from "react";
-import Sidebar from "../../components/Sidebar/Sidebar";
+import SidebarAdmin from "../../components/Sidebar/SidebarAdmin";
 import axios from "axios";
+import Swal from "sweetalert2";
 
-export default function CariPekerjaan() {
-  const [pekerjaan, setPekerjaan] = useState([]);
-  const [showModal, setShowModal] = React.useState(false);
-  const [loading, setLoading] = useState([]);
-  const [selectedDetail, setSelectedDetail] = useState(null);
+export default function HistoryPekerjaan() {
+    const [pekerjaan, setPekerjaan] = useState([]);
+    const [showModal, setShowModal] = React.useState(false);
+    const [loading ,setLoading] = useState([]);
+    const [selectedDetail, setSelectedDetail] = useState(null);
+    const AuthToken = localStorage.getItem("token");
+    const userId = localStorage.getItem("userId");
 
-  useEffect(() => {
-    axios.get(`http://localhost:8080/api/pekerjaan/all`).then((res) => {
-      setPekerjaan(res.data);
-    });
-  }, []);
+    
+    // const melamarPekerjaan = (pekerjaanId) => {
+    //     axios.post(`http://localhost:8080/api/lamar`, {
+    //         pekerjaanId
+    //     }).then((response) => {
+    //         if (response.status === 200) {
+    //             alert("Berhasil melamar pekerjaan.");
+    //         } else {
+    //             alert("Gagal melamar pekerjaan.");
+    //         }
+    //     }).catch((error) => {
+    //         alert(error.message);
+    //     });
+    // };
 
-  const Delete = async ()=>{
+    useEffect(() => {
+        axios.get(`http://localhost:8080/api/pekerjaan/user/${userId}`).then((res) => {
+          setPekerjaan(res.data);
+        });
+      }, []);
 
-  }
+      const deletePekerjaan = async (id) => {
+        await Swal.fire({
+          title: "Anda yakin?",
+          text: "Yakin ingin menghapus data Pekerjaan ini?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Ya, hapus!",
+          cancelButtonText: "Batal",
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            try {
+              await axios.delete(`http://localhost:8080/api/pekerjaan/${id}`);
+              await Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Berhasil Menghapus!",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              window.location.reload();
+            } catch (error) {
+              console.error(error);
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Terjadi kesalahan saat menghapus data",
+              });
+            }
+          }
+        });
+      };
 
-  const showDetailModal = (id) => {
-    const selectedDetail = pekerjaan.find((pekerjaan) => pekerjaan.id === id);
-    setShowModal(true);
-    setSelectedDetail(selectedDetail);
-  };
-
+    const showDetailModal = (id) => {
+        const selectedDetail = pekerjaan.find((pekerjaan) => pekerjaan.id === id);
+        setShowModal(true);
+        setSelectedDetail(selectedDetail);
+      };
   return (
     <>
-      <Sidebar />
-      <div className="md:px-4   sm:mx-12 mt-44   ">
+      <SidebarAdmin />
+      <div className="md:px-4   sm:mx-12 mt-24   ">
         <div className="flex justify-center w-[100%]">
           <main className="s-content w-[390px] md:w-[1125px]    md:px-10 mx-8 ">
-            <div className="flex flex-wrap md:grid md:grid-cols-3 gap-3 ">
+          <div className="flex flex-wrap md:grid md:grid-cols-3 gap-3 ">
               {pekerjaan.map((pekerjaan) => (
-                <div className="flex flex-nowrap lg:ml-12 md:ml-12 ml-5 mb-5">
+                <div className="flex flex-nowrap lg:ml-12 md:ml-12 ml-5">
                   <div className="inline-block px-3 mb-1 relative border border-gray-300">
                     <img
                       className="w-64 h-64 my-2 max-w-xs overflow-hidden rounded-lg shadow-md"
@@ -49,20 +96,21 @@ export default function CariPekerjaan() {
                       </p>
                     </div>
 
-                    <div className="flex justify-around items-center mt-2">
-                      <button
-                        className="w-24 h-8 bg-blue-500 text-white active:bg-blue-200 font-bold uppercase text-sm rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
-                        onClick={() => showDetailModal(pekerjaan.id)}
-                      >
-                        Detail
-                      </button>
-                      <a
-                        className="w-24 h-8 rounded-lg text-center text-white my-5 font-bold uppercase justify-self-end bg-lime-400 hover:bg-gray-300 hover:text-dark"
-                        href={"/lamar-pekerjaan"}
-                      >
-                        Lamar
-                      </a>
-                    </div>
+                    <div className="flex justify-around items-center mt-2 mb-4">
+                          <button
+                            className="w-24 h-8 bg-blue-500 text-white active:bg-blue-200 font-bold uppercase text-sm rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
+                            onClick={() => showDetailModal(pekerjaan.id)}
+                          >
+                            Detail
+                          </button>
+                          <button
+                            className="w-24 h-8 bg-rose-500 text-white active:bg-blue-200 font-bold uppercase text-sm rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
+                            onClick={() => deletePekerjaan(pekerjaan.id)}
+                          >
+                            Hapus
+                          </button>
+                          
+                        </div>
                   </div>
                 </div>
               ))}
@@ -104,7 +152,7 @@ export default function CariPekerjaan() {
                               Nama Pekerjaan : {selectedDetail?.namaPekerjaan}
                             </h3>
                             <p className="text-xl mb-2 text-white">
-                              Email : {selectedDetail?.email}
+                            Email : {selectedDetail?.email}
                             </p>
                             <p className="text-xl mb-2 text-white">
                               Alamat : {selectedDetail?.alamatPekerjaan}
@@ -113,8 +161,7 @@ export default function CariPekerjaan() {
                               Gaji Pegawai : {selectedDetail?.gajiPegawai}
                             </p>
                             <p className="text-xl mb-2 text-white">
-                              Tentang Pekerjaan :{" "}
-                              {selectedDetail?.tentangPekerjaan}
+                              Tentang Pekerjaan : {selectedDetail?.tentangPekerjaan}
                             </p>
                           </div>
                         </div>
@@ -135,6 +182,7 @@ export default function CariPekerjaan() {
                 <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
               </>
             )}
+
           </main>
         </div>
       </div>

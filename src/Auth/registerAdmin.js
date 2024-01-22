@@ -56,7 +56,9 @@ export default function RegisterAdmin() {
         title: "Sukses!",
         text: "Registrasi akun telah berhasil",
       });
-      navigate("/login");
+      localStorage.setItem("id", res.data.data.id)
+      localStorage.setItem("role", res.data.data.role)
+      navigate("/register-admin-2");
     } catch (error) {
       console.log(error);
     }
@@ -209,7 +211,7 @@ export default function RegisterAdmin() {
                 <div className="hidden lg:block w-full h-full">
                   <img
                     className="w-full h-full"
-                    src="https://img.freepik.com/free-vector/sign-up-concept-illustration_114360-7965.jpg"
+                    src="https://img.freepik.com/free-vector/flat-design-illustration-customer-support_23-2148887720.jpg?w=740&t=st=1705750971~exp=1705751571~hmac=760f1859d3e3ebd521bdfcc13f981557cf06301edb0e006f6b1ac98e8c6bd9aa"
                     alt="bg"
                   />
                 </div>

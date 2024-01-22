@@ -176,7 +176,7 @@ export default function EditAkunAdmin() {
     }
  
       await axios
-        .post(`http://localhost:8080/api/identitasUsers/add/${id}`, formData)
+        .put(`http://localhost:8080/api/identitasUsers/edit/${id}`, formData)
         .then(() => {
           Swal.fire({
             position: "center",
@@ -268,13 +268,13 @@ export default function EditAkunAdmin() {
       );
 
       const dataUser = response.data;
-      setNamaLengkap(dataUser.namaLengkap);
-      setAgama(dataUser.agama);
-      setNoKk(dataUser.noKk);
-      setNoNik(dataUser.noNik);
-      setNoTelepon(dataUser.noTelepon);
-      setAlamatRumah(dataUser.alamatRumah);
-      setTentangSaya(dataUser.tentangSaya);
+      setNamaLengkap(dataUser[0].namaLengkap);
+      setAgama(dataUser[0].agama);
+      setNoKk(dataUser[0].noKk);
+      setNoNik(dataUser[0].noNik);
+      setNoTelepon(dataUser[0].noTelepon);
+      setAlamatRumah(dataUser[0].alamatRumah);
+      setTentangSaya(dataUser[0].tentangSaya);
     } catch (error) {
       console.error("Error fetching data:", error);
       Swal.fire({

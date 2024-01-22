@@ -54,9 +54,10 @@ export default function Register() {
       Swal.fire({
         icon: "success",
         title: "Sukses!",
-        text: "Registrasi akun telah berhasil",
+        text: "Registrasi akun 1 telah berhasil",
       });
-      navigate("/login");
+      localStorage.setItem("id", res.data.data.id);
+      navigate("/registrasi-2");
     } catch (error) {
       console.log(error);
     }

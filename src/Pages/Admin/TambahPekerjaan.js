@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import SidebarAdmin from "../../components/Sidebar/SidebarAdmin";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function TambahPekerjaan() {
   const [namaPekerjaan, setNamaPekerjaan] = useState("");
   const [email, setEmail] = useState("");
   const [alamatPekerjaan, setAlamatPekerjaan] = useState("");
   const [gajiPegawai, setGajiPegawai] = useState("");
-  const [fotoPekerjaan, setFotoPekerjaan] = useState("");
+  const userId = localStorage.getItem("userId");
   const [tentangPekerjaan, setTentangPekerjaan] = useState("");
+  const navigate = useNavigate();
 
   const tambahPekerjaan = async (e) => {
     e.preventDefault();
@@ -19,15 +21,12 @@ export default function TambahPekerjaan() {
       email: email,
       alamatPekerjaan: alamatPekerjaan,
       gajiPegawai: gajiPegawai,
-      fotoPekerjaan: fotoPekerjaan,
       tentangPekerjaan: tentangPekerjaan,
+      userId: userId,
     };
 
     try {
-      await axios.post(
-        `http://localhost:8080/api/pekerjaan/${localStorage.getItem("id")}/`,
-        tambah
-      );
+      await axios.post(`http://localhost:8080/api/pekerjaan/add  `, tambah);
       Swal.fire({
         position: "center",
         icon: "success",
@@ -36,7 +35,7 @@ export default function TambahPekerjaan() {
         timer: 1500,
       });
       setTimeout(() => {
-        window.location.href = "/table-guru";
+       navigate("/uploadFoto-pekerjaan")
       }, 1500);
     } catch (err) {
       console.log(err);
@@ -50,6 +49,8 @@ export default function TambahPekerjaan() {
       });
     }
   };
+
+   
   return (
     <>
       <SidebarAdmin />
@@ -128,22 +129,6 @@ export default function TambahPekerjaan() {
                           className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                           value={gajiPegawai}
                           onChange={(e) => setGajiPegawai(e.target.value)}
-                        />
-                      </div>
-                    </div>
-                    <div className="w-full lg:w-12/12 px-4">
-                      <div className="relative w-full mb-3">
-                        <label
-                          className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                          htmlFor="grid-password"
-                        >
-                          Foto Pekerjaan
-                        </label>
-                        <input
-                          className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                          type="file"
-                          value={fotoPekerjaan}
-                          onChange={(e) => setFotoPekerjaan(e.target.value)}
                         />
                       </div>
                     </div>

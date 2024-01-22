@@ -7,7 +7,8 @@ import { useNavigate } from "react-router-dom";
 export default function CardSettings() {
   const [currentUrl, setCurrentUrl] = useState("");
   const navigate = useNavigate();
-  const id = localStorage.getItem("userId");
+  const id = localStorage.getItem("id");
+  const userId = localStorage.getItem("userId");
   const AuthToken = localStorage.getItem("token");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -20,6 +21,7 @@ export default function CardSettings() {
   const [tentangSaya, setTentangSaya] = useState("");
   const [noTelepom, setNoTelepon] = useState("");
   const [noKK, setNoKK] = useState("");
+  const [Gender, setGender] = useState("");
   const [noNik, setNoNik] = useState("");
   const [UserId, setUserId] = useState("");
 
@@ -48,7 +50,7 @@ export default function CardSettings() {
 
   const getDataUser = async () => {
     try {
-      if (!id || id === null || id === undefined) {
+      if (!userId || userId === null || userId === undefined) {
         console.error("userId is null or undefined");
         return;
       }
@@ -56,7 +58,7 @@ export default function CardSettings() {
       // Assuming you have a function to retrieve the authentication token
       const token = await AuthToken;
       const response = await axios.get(
-        `http://localhost:8080/api/identitasUsers/${id}`,
+        `http://localhost:8080/api/identitasUsers/${userId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -66,13 +68,14 @@ export default function CardSettings() {
       );
 
       const dataUser = response.data;
-      setNamaLengkap(dataUser.namaLengkap);
-      setAgama(dataUser.agama);
-      setNoKK(dataUser.noKk);
-      setNoNik(dataUser.noNik);
-      setNoTelepon(dataUser.noTelepon);
-      setAlamatRumah(dataUser.alamatRumah);
-      setTentangSaya(dataUser.tentangSaya);
+      setNamaLengkap(dataUser[0].namaLengkap);
+      setAgama(dataUser[0].agama);
+      setNoKK(dataUser[0].noKk);
+      setNoNik(dataUser[0].noNik);
+      setNoTelepon(dataUser[0].noTelepon);
+      setAlamatRumah(dataUser[0].alamatRumah);
+      setGender(dataUser[0].gender);
+      setTentangSaya(dataUser[0].tentangSaya);
     } catch (error) {
       console.error("Error fetching data:", error);
       Swal.fire({
@@ -149,7 +152,7 @@ export default function CardSettings() {
                   />
                 </div>
               </div>
-              <div className="w-full lg:w-4/12 px-4">
+              <div className="w-full lg:w-6/12 px-4">
                 <div className="relative w-full mb-3">
                   <label
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -167,7 +170,7 @@ export default function CardSettings() {
                   />
                 </div>
               </div>
-              <div className="w-full lg:w-4/12 px-4">
+              <div className="w-full lg:w-6/12 px-4">
                 <div className="relative w-full mb-3">
                   <label
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -181,7 +184,7 @@ export default function CardSettings() {
                   />
                 </div>
               </div>
-              <div className="w-full lg:w-4/12 px-4">
+              <div className="w-full lg:w-6/12 px-4">
                 <div className="relative w-full mb-3">
                   <label
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -192,6 +195,22 @@ export default function CardSettings() {
                   <input
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     defaultValue={agama === null ? "Belum Di isi" : agama}
+                    disabled
+                  />
+                </div>
+              </div>
+              <div className="w-full lg:w-6/12 px-4">
+                <div className="relative w-full mb-3">
+                  <label
+                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                    htmlFor="grid-password"
+                  >
+                    Gender
+                  </label>
+                  <input
+                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    defaultValue={Gender === null ? "Belum Di isi" : Gender}
+                    disabled
                   />
                 </div>
               </div>

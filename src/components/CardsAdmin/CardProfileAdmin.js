@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 export default function CardProfileAdmin() {
-  const id = localStorage.getItem("userId");
+  const id = localStorage.getItem("id");
+  const userId = localStorage.getItem("userId");
   const AuthToken = localStorage.getItem("token");
   const [username, setUsername] = useState("");
   const [role, setRole] = useState("");
@@ -69,13 +70,13 @@ export default function CardProfileAdmin() {
       );
 
       const dataUser = response.data;
-      setNamaLengkap(dataUser.namaLengkap);
-      setAgama(dataUser.agama);
-      setNoKK(dataUser.noKk);
-      setNoNik(dataUser.noNik);
-      setNoTelepon(dataUser.noTelepon);
-      setAlamatRumah(dataUser.alamatRumah);
-      setTentangSaya(dataUser.tentangSaya);
+      setNamaLengkap(dataUser[0].namaLengkap);
+      setAgama(dataUser[0].agama);
+      setNoKK(dataUser[0].noKk);
+      setNoNik(dataUser[0].noNik);
+      setNoTelepon(dataUser[0].noTelepon);
+      setAlamatRumah(dataUser[0].alamatRumah);
+      setTentangSaya(dataUser[0].tentangSaya);
     } catch (error) {
       console.error("Error fetching data:", error);
       Swal.fire({
@@ -167,14 +168,7 @@ export default function CardProfileAdmin() {
               {lastLogin ? "Online" : "Offline"}
             </div> */}
           </div>
-          {imgUser !== null && (
-            <button
-              className="w-auto h-auto absolute bottom-0 right-0 bg-red-500 hover:bg-red-700 text-white font-bold mb-2 mr-2 py-2 px-4 rounded"
-              onClick={() => handleDeleteImage()}
-            >
-              Hapus Foto
-            </button>
-          )}
+         
         </div>
       </div>
     </>

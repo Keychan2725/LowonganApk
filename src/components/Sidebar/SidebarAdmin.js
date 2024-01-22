@@ -6,7 +6,7 @@ import axios from "axios";
 
 export default function SidebarAdmin() {
   const navigate = useNavigate();
-  const id = localStorage.getItem("userId");
+  const id = localStorage.getItem("id");
   const AuthToken = localStorage.getItem("token");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -14,7 +14,6 @@ export default function SidebarAdmin() {
   const [password, setPassword] = useState("");
   const [imgUser, setImgUser] = useState("");
 
- 
   const getAkun = async () => {
     try {
       const token = await AuthToken;
@@ -38,8 +37,6 @@ export default function SidebarAdmin() {
       });
     }
   };
-
-  
 
   const handleLogout = () => {
     localStorage.clear();
@@ -95,13 +92,13 @@ export default function SidebarAdmin() {
               <a href="#" className="flex ms-2 md:me-24">
                 <img src={Logo} className="h-12 me-3" alt="FlowBite Logo" />
                 <span className="   self-center text-xl font-semibold sm:text-2xl whitespace-nowrap  ">
-                Admin
+                  Admin
                 </span>
               </a>
             </div>
             <div className="flex items-center">
               <div className="flex items-center justify-around ms-3">
-                <div className="relative">
+                {/* <div className="relative">
                   <p
                     className="pt-1 pr-1 pb-1 pl-1 bg-white text-gray-700 rounded-full transition-all duration-200
                 hover:text-gray-900 focus:outline-none hover:bg-gray-100"
@@ -135,7 +132,7 @@ export default function SidebarAdmin() {
                   >
                     2
                   </p>
-                </div>
+                </div> */}
                 <button
                   type="button"
                   className="ml-4 flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
@@ -145,7 +142,11 @@ export default function SidebarAdmin() {
                   <span className="sr-only">Open user menu</span>
                   <img
                     className="w-8 h-8 rounded-full"
-                    src={imgUser === null ? "https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg" : imgUser}
+                    src={
+                      imgUser === null
+                        ? "https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg"
+                        : imgUser
+                    }
                     alt="user photo"
                   />
                 </button>
@@ -158,13 +159,13 @@ export default function SidebarAdmin() {
                       className="text-sm text-black dark:text-black"
                       role="none"
                     >
-                 {username}
+                      {username}
                     </p>
                     <p
                       className="text-sm font-medium text-gray-900 truncate  "
                       role="none"
                     >
-                     {email}
+                      {email}
                     </p>
                   </div>
                   <ul className="py-1" role="none">
@@ -173,7 +174,6 @@ export default function SidebarAdmin() {
                         href="/akun-admin"
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-800 dark:hover:text-white"
                         role="menuitem"
-                      
                       >
                         Akun
                       </a>
@@ -225,7 +225,7 @@ export default function SidebarAdmin() {
                 <span className="ms-3">Dashboard</span>
               </a>
             </li>
-           
+
             <li>
               <a
                 href="notifikasi-pelamar"
@@ -249,7 +249,7 @@ export default function SidebarAdmin() {
                 <span className="ms-3">Notifikasi Pelamar</span>
               </a>
             </li>
-           
+
             <li>
               <a
                 href="tambah-pekerjaan"
@@ -259,18 +259,41 @@ export default function SidebarAdmin() {
                   className="w-5 h-5 text-gray-500 transition duration-75 hover:text-white dark:text-gray-400 group-hover:text-white dark:group-hover:text-white"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
                   fill="none"
-                  viewBox="0 0 16 21"
+                  viewBox="0 0 20 20"
                 >
                   <path
                     stroke="currentColor"
                     strokeLinecap="round"
-                    strokeLinejoin="round"
                     strokeWidth="2"
-                    d="M8 3.464V1.1m0 2.365a5.338 5.338 0 0 1 5.133 5.368v1.8c0 2.386 1.867 2.982 1.867 4.175C15 15.4 15 16 14.462 16H1.538C1 16 1 15.4 1 14.807c0-1.193 1.867-1.789 1.867-4.175v-1.8A5.338 5.338 0 0 1 8 3.464ZM4.54 16a3.48 3.48 0 0 0 6.92 0H4.54Z"
+                    d="M4.5 19A3.5 3.5 0 0 1 1 15.5V2a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v13.5A3.5 3.5 0 0 1 4.5 19Zm0 0H18a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1h-4.938a1 1 0 0 0-.697.283l-4.238 4.124a1.046 1.046 0 0 0-.164.208C6.986 18.228 6.184 18.705 4.5 19Zm0-4h.01m8.925-12.293 3.536 3.536a1 1 0 0 1 0 1.414L8 16.627v-9.9l4.02-4.02a1 1 0 0 1 1.415 0Z"
                   />
                 </svg>
                 <span className="ms-3">Tambah Pekerjaan</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="history-pekerjaan"
+                className="flex items-center p-2 text-gray-900 rounded-lg   hover:bg-gray-800 hover:text-white group"
+              >
+                <svg
+                  className="w-5 h-5 text-gray-500 transition duration-75 hover:text-white dark:text-gray-400 group-hover:text-white dark:group-hover:text-white"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 20 16"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M8 8v1h4V8m4 7H4a1 1 0 0 1-1-1V5h14v9a1 1 0 0 1-1 1ZM2 1h16a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1Z"
+                  />
+                </svg>
+                <span className="ms-3">History Pekerjaan</span>
               </a>
             </li>
             <li>

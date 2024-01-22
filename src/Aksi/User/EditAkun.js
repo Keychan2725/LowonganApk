@@ -9,7 +9,8 @@ export default function EditAkun() {
   const [currentUrl, setCurrentUrl] = useState("");
   const [fileInputValue, setFileInputValue] = useState("");
   const navigate = useNavigate();
-  const id = localStorage.getItem("userId");
+  const id = localStorage.getItem("id");
+  const userId = localStorage.getItem("userId");
   const AuthToken = localStorage.getItem("token");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -21,6 +22,7 @@ export default function EditAkun() {
   const [namaLengkap, setNamaLengkap] = useState("");
   const [alamatRumah, setAlamatRumah] = useState("");
   const [tentangSaya, setTentangSaya] = useState("");
+  const [gender, setGender] = useState("");
   const [noTelepon, setNoTelepon] = useState("");
   const [noKk, setNoKk] = useState("");
   const [noNik, setNoNik] = useState("");
@@ -52,6 +54,9 @@ export default function EditAkun() {
 
   const nameChangeHandler = (event) => {
     setNamaLengkap(event.target.value);
+  };
+  const genderChange = (event) => {
+    setGender(event.target.value);
   };
   const agamaChange = (event) => {
     setAgama(event.target.value);
@@ -165,7 +170,7 @@ export default function EditAkun() {
     event.preventDefault();
 
     await axios
-      .put(`http://localhost:8080/api/identitasUsers/${id} `, {
+      .put(`http://localhost:8080/api/identitasUsers/edit/${userId} `, {
         namaLengkap: namaLengkap,
         tentangSaya: tentangSaya,
         alamatRumah: alamatRumah,
@@ -244,7 +249,7 @@ export default function EditAkun() {
   };
   const getDataUser = async () => {
     try {
-      if (!id || id === null || id === undefined) {
+      if (!userId || userId === null || userId === undefined) {
         console.error("userId is null or undefined");
         return;
       }
@@ -252,7 +257,7 @@ export default function EditAkun() {
       // Assuming you have a function to retrieve the authentication token
       const token = await AuthToken;
       const response = await axios.get(
-        `http://localhost:8080/api/identitasUsers/${id}`,
+        `http://localhost:8080/api/identitasUsers/${userId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -267,6 +272,7 @@ export default function EditAkun() {
       setNoKk(dataUser.noKk);
       setNoNik(dataUser.noNik);
       setNoTelepon(dataUser.noTelepon);
+      setNoTelepon(dataUser.gender);
       setAlamatRumah(dataUser.alamatRumah);
       setTentangSaya(dataUser.tentangSaya);
     } catch (error) {
@@ -360,7 +366,7 @@ export default function EditAkun() {
                       </div>
                     </div>
 
-                    <div className="w-full lg:w-4/12 px-4">
+                    <div className="w-full lg:w-6/12 px-4">
                       <div className="relative w-full mb-3">
                         <label
                           className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -375,7 +381,7 @@ export default function EditAkun() {
                         />
                       </div>
                     </div>
-                    <div className="w-full lg:w-4/12 px-4">
+                    <div className="w-full lg:w-6/12 px-4">
                       <div className="relative w-full mb-3">
                         <label
                           className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -390,7 +396,7 @@ export default function EditAkun() {
                         />
                       </div>
                     </div>
-                    <div className="w-full lg:w-4/12 px-4">
+                    <div className="w-full lg:w-6/12 px-4">
                       <div className="relative w-full mb-3">
                         <label
                           className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -402,6 +408,21 @@ export default function EditAkun() {
                           className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                           value={noTelepon}
                           onChange={(e) => TeleponChange(e)}
+                        />
+                      </div>
+                    </div>
+                    <div className="w-full lg:w-6/12 px-4">
+                      <div className="relative w-full mb-3">
+                        <label
+                          className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                          htmlFor="grid-password"
+                        >
+                          Gender{" "}
+                        </label>
+                        <input
+                          className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                          value={gender}
+                          onChange={(e) => genderChange(e)}
                         />
                       </div>
                     </div>

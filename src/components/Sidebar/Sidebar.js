@@ -8,7 +8,7 @@ import axios from "axios";
 
 export default function Sidebar() {
   const navigate = useNavigate();
-  const id = localStorage.getItem("userId");
+  const id = localStorage.getItem("id");
   const AuthToken = localStorage.getItem("token");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -16,7 +16,6 @@ export default function Sidebar() {
   const [password, setPassword] = useState("");
   const [imgUser, setImgUser] = useState("");
 
- 
   const getAkun = async () => {
     try {
       const token = await AuthToken;
@@ -40,8 +39,6 @@ export default function Sidebar() {
       });
     }
   };
-
-  
 
   const handleLogout = () => {
     localStorage.clear();
@@ -103,41 +100,6 @@ export default function Sidebar() {
             </div>
             <div className="flex items-center">
               <div className="flex items-center justify-around ms-3">
-                <div className="relative">
-                  <p
-                    className="pt-1 pr-1 pb-1 pl-1 bg-white text-gray-700 rounded-full transition-all duration-200
-                hover:text-gray-900 focus:outline-none hover:bg-gray-100"
-                  >
-                    <a href="#" className="justify-center items-center flex">
-                      <span className="justify-center items-center flex">
-                        <span className="items-center justify-center flex">
-                          <svg
-                            className="w-6 h-6"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4
-                        0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6
-                        0H9"
-                            />
-                          </svg>
-                        </span>
-                      </span>
-                    </a>
-                  </p>
-                  <p
-                    className="px-1.5 py-0.5 font-semibold text-xs items-center bg-indigo-600 text-white rounded-full inline-flex
-                absolute -top-px -right-1"
-                  >
-                    2
-                  </p>
-                </div>
                 <button
                   type="button"
                   className="ml-4 flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
@@ -147,7 +109,11 @@ export default function Sidebar() {
                   <span className="sr-only">Open user menu</span>
                   <img
                     className="w-8 h-8 rounded-full"
-                    src={imgUser === null ? "https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg" : imgUser}
+                    src={
+                      imgUser === null
+                        ? "https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg"
+                        : imgUser
+                    }
                     alt="user photo"
                   />
                 </button>
@@ -160,13 +126,13 @@ export default function Sidebar() {
                       className="text-sm text-black dark:text-black"
                       role="none"
                     >
-                 {username}
+                      {username}
                     </p>
                     <p
                       className="text-sm font-medium text-gray-900 truncate  "
                       role="none"
                     >
-                     {email}
+                      {email}
                     </p>
                   </div>
                   <ul className="py-1" role="none">
@@ -175,7 +141,6 @@ export default function Sidebar() {
                         href="/akun"
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-800 dark:hover:text-white"
                         role="menuitem"
-                      
                       >
                         Akun
                       </a>
@@ -250,75 +215,6 @@ export default function Sidebar() {
                 <span className="ms-3">Cari Pekerjaan</span>
               </a>
             </li>
-            {/* <li>
-              <a
-                href="/cari-pegawai"
-                className="flex items-center p-2 text-gray-900 rounded-lg   hover:bg-gray-800 hover:text-white group"
-              >
-                <svg
-                  className="w-5 h-5 text-gray-500 transition duration-75 hover:text-white dark:text-gray-400 group-hover:text-white dark:group-hover:text-white"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4.333 6.764a3 3 0 1 1 3.141-5.023M2.5 16H1v-2a4 4 0 0 1 4-4m7.379-8.121a3 3 0 1 1 2.976 5M15 10a4 4 0 0 1 4 4v2h-1.761M13 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-4 6h2a4 4 0 0 1 4 4v2H5v-2a4 4 0 0 1 4-4Z"
-                  />
-                </svg>
-                <span className="ms-3">Cari Pegawai</span>
-              </a>
-            </li> */}
-            <li>
-              <a
-                href="#"
-                className="flex items-center p-2 text-gray-900 rounded-lg   hover:bg-gray-800 hover:text-white group"
-              >
-                <svg
-                  className="w-5 h-5 text-gray-500 transition duration-75 hover:text-white dark:text-gray-400 group-hover:text-white dark:group-hover:text-white"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 16 21"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M8 3.464V1.1m0 2.365a5.338 5.338 0 0 1 5.133 5.368v1.8c0 2.386 1.867 2.982 1.867 4.175C15 15.4 15 16 14.462 16H1.538C1 16 1 15.4 1 14.807c0-1.193 1.867-1.789 1.867-4.175v-1.8A5.338 5.338 0 0 1 8 3.464ZM4.54 16a3.48 3.48 0 0 0 6.92 0H4.54Z"
-                  />
-                </svg>
-                <span className="ms-3">Notifikasi</span>
-              </a>
-            </li>
-            {/* <li>
-              <a
-                href="#"
-                className="flex items-center p-2 text-gray-900 rounded-lg   hover:bg-gray-800 hover:text-white group"
-              >
-                <svg
-                  className="w-5 h-5 text-gray-500 transition duration-75 hover:text-white dark:text-gray-400 group-hover:text-white dark:group-hover:text-white"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M18 5h1v12a2 2 0 0 1-2 2m0 0a2 2 0 0 1-2-2V2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v15a2 2 0 0 0 2 2h14ZM10 4h2m-2 3h2m-8 3h8m-8 3h8m-8 3h8M4 4h3v3H4V4Z"
-                  />
-                </svg>
-                <span className="ms-3">Data Diri</span>
-              </a>
-            </li> */}
             <li>
               <a
                 href="/akun"
