@@ -17,7 +17,6 @@ import { initFlowbite } from "flowbite";
 import EditAkun from "./Aksi/User/EditAkun";
 import CariPekerjaan from "./Pages/pekerjaan/CariPekerjaan";
 import LamarPekerjaan from "./Aksi/User/LamarPekerjaan";
-import Notifikasi from "./Pages/notifikasi/Notifikasi";
 import RegisterAdmin from "./Auth/registerAdmin";
 import PrivateSuperAdmin from "./Router/PrivateSuperAdmin";
 import DashboardAdmin from "./Pages/Admin/DashboardAdmin";
@@ -30,6 +29,7 @@ import RegistrasiAdmin2 from "./Auth/registerAdmin2";
 import HistoryPekerjaan from "./Pages/Admin/HistoryPekerjaan";
 import UploadFotoPekerjaan from "./Pages/Admin/UploadFotoPekerjaan";
 import PrivateUpload from "./Router/PrivateUpload";
+import DetailPelamar from "./Pages/Admin/DetailPelamar";
 
 function App() {
   useEffect(() => {
@@ -122,7 +122,7 @@ function App() {
             }
           />
           <Route
-            path="/lamar-pekerjaan"
+            path="/lamar-pekerjaan/:id"
             element={
               <PrivateRoute>
                 <PrivateHome>
@@ -131,17 +131,7 @@ function App() {
               </PrivateRoute>
             }
           />
-
-          <Route
-            path="/notifikasi"
-            element={
-              <PrivateRoute>
-                <PrivateHome>
-                  <Notifikasi />
-                </PrivateHome>
-              </PrivateRoute>
-            }
-          />
+ 
           <Route
             path="/notifikasi-pelamar"
             element={
@@ -168,6 +158,16 @@ function App() {
               <PrivateRoute>
                 <PrivateSuperAdmin>
                   <SettingsAdmin />
+                </PrivateSuperAdmin>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/detail-pelamar/:id"
+            element={
+              <PrivateRoute>
+                <PrivateSuperAdmin>
+                  <DetailPelamar />
                 </PrivateSuperAdmin>
               </PrivateRoute>
             }

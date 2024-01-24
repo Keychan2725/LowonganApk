@@ -7,13 +7,13 @@ import { useParams } from "react-router-dom";
 
 export default function UploadFotoPekerjaan(){
     const [fotoPekerjaan, setFotoPekerjaan] = useState("");
-    const id = useParams();
+    const userId = localStorage.getItem("userId");
     const AuthToken = localStorage.getItem("token");
 
 
 
 
-    const handleImageChange = (event) => {
+    const handleImageChange = (event , id) => {
         const imageFile = event.target.files[0];
     
         // Validate file format (according to backend)
@@ -53,7 +53,7 @@ export default function UploadFotoPekerjaan(){
           const token =  AuthToken;
 
           axios
-            .post(
+            .put(
               `http://localhost:8080/api/pekerjaan/upload-image/${id}`,
               formData,
               {

@@ -30,11 +30,12 @@ export default function TambahPekerjaan() {
       Swal.fire({
         position: "center",
         icon: "success",
-        title: "Berhasil ditambahkan",
+        title: "Berhasil menambahkan data",
         showConfirmButton: false,
         timer: 1500,
       });
       setTimeout(() => {
+ 
        navigate("/uploadFoto-pekerjaan")
       }, 1500);
     } catch (err) {
@@ -56,7 +57,7 @@ export default function TambahPekerjaan() {
       <SidebarAdmin />
       <div className="  my-5 mt-24   ">
         <div className="flex justify-center">
-          <main className="s-content w-[400px] md:w-[1125px]    md:px-24 mx-8 ">
+          <main className="s-content md:w-[1800px] md:ml-56   md:px-24 mx-8 ">
             <div className="relative flex flex-col min-w-0 break-words w-full my-6  shadow-lg rounded-lg bg-blueGray-100 border-0">
               <div className="text-center flex justify-between items-center">
                 <div className="flex items-center mx-4 my-5">
@@ -94,7 +95,7 @@ export default function TambahPekerjaan() {
                           Email
                         </label>
                         <input
-                          type="text"
+                          type="email"
                           className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
@@ -158,7 +159,7 @@ export default function TambahPekerjaan() {
                       type="submit"
                       className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                     >
-                      Publikasi Pekerjaan
+                      Lanjut Upload Foto
                     </button>
                   </div>
                 </form>

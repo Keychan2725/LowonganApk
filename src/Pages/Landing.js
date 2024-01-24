@@ -116,7 +116,7 @@ export default function Landing() {
                   <i className="fas fa-user-friends text-xl"></i>
                 </div>
                 <h3 className="text-3xl mb-2 font-semibold leading-normal">
-                  Bekerja sama adalah kesenangan
+                  Bekerja sama  
                 </h3>
                 <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-blueGray-600">
                   Jangan buang waktu anda jika anda belum bekerja . Sekarang

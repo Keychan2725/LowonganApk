@@ -66,6 +66,7 @@ export default function CardSettingsAdmin() {
       );
 
       const dataUser = response.data;
+ 
       setNamaLengkap(dataUser[0].namaLengkap);
       setAgama(dataUser[0].agama);
       setNoKK(dataUser[0].noKk);
@@ -73,6 +74,7 @@ export default function CardSettingsAdmin() {
       setNoTelepon(dataUser[0].noTelepon);
       setAlamatRumah(dataUser[0].alamatRumah);
       setTentangSaya(dataUser[0].tentangSaya);
+  
     } catch (error) {
       console.error("Error fetching data:", error);
       Swal.fire({

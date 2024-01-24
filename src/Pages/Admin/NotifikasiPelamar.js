@@ -3,22 +3,24 @@ import SidebarAdmin from "../../components/Sidebar/SidebarAdmin";
 import Swal from "sweetalert2";
 import axios from "axios";
 import ReactPaginate from "react-paginate";
-import emailjs from 'emailjs-com';
-
+import emailjs from "emailjs-com";
 
 export default function NotifikasiPelamar() {
-  const [users, setUsers] = useState([]);
+  const [pelamar, setPelamar] = useState([]);
   const [modal, setModal] = useState(false);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const form = useRef();
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 10;
+  const pekerjaanId = localStorage.getItem("pekerjaanId");
 
   const getAll = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/user/all`);
-      setUsers(response.data);
+      const response = await axios.get(
+        `http://localhost:8080/api/pelamar/getBy/${pekerjaanId}`
+      );
+      setPelamar(response.data);
       setFilteredUsers(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -79,7 +81,7 @@ export default function NotifikasiPelamar() {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await axios.delete(`http://localhost:8080/api/users/${id}`);
+          await axios.delete(`http://localhost:8080/api/pelamar/${id}`);
           await Swal.fire({
             position: "center",
             icon: "success",
@@ -136,14 +138,14 @@ export default function NotifikasiPelamar() {
       );
   };
 
-  const cariSekolah = (term) => {
+  const cariPelamar = (term) => {
     if (term.trim() === "") {
-      setFilteredUsers(users);
+      setFilteredUsers([...pelamar]);
     } else {
-      const filteredResults = users.filter(
+      const filteredResults = pelamar.filter(
         (user) =>
-          user.namaSekolah &&
-          user.namaSekolah.toLowerCase().includes(term.toLowerCase())
+          user.namaLengkap &&
+          user.namaLengkap.toLowerCase().includes(term.toLowerCase())
       );
       setFilteredUsers(filteredResults);
     }
@@ -159,7 +161,7 @@ export default function NotifikasiPelamar() {
   }, []);
 
   const offset = currentPage * itemsPerPage;
-  // const paginatedUsers = filteredUsers.slice(offset, offset + itemsPerPage);
+  const paginatedUsers = filteredUsers.slice(offset, offset + itemsPerPage);
   return (
     <>
       <SidebarAdmin />
@@ -169,9 +171,7 @@ export default function NotifikasiPelamar() {
             <div className=" ">
               <div className="grid flex justify-between md:grid-cols-1  overflow-hidden overflow-x-auto  ">
                 <div className="grid grid-cols-1 ">
-                  <span className="text-center text-white w-auto add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
-                   
-                  </span>
+                  <span className="text-center text-white w-auto add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"></span>
                 </div>
 
                 <div className="flex justify-between my-5 md:">
@@ -186,11 +186,11 @@ export default function NotifikasiPelamar() {
                       type="text"
                       className="text-dark rounded-lg mx-2   active:bg-slate-300   text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none my-5 md:my-2 ease-linear transition-all duration-150"
                       placeholder="Cari nama pelamar"
-                      //   value={searchTerm}
-                      //   onChange={(e) => {
-                      //     setSearchTerm(e.target.value);
-                      //     cariSekolah(e.target.value);
-                      //   }}
+                      value={searchTerm}
+                      onChange={(e) => {
+                        setSearchTerm(e.target.value);
+                        cariPelamar(e.target.value);
+                      }}
                     />
                   </label>
                 </div>
@@ -199,7 +199,6 @@ export default function NotifikasiPelamar() {
                 <table
                   className="min-w-full divide-gray-200 text-center p-5"
                   id="example"
-                  data-aos="zoom-in"
                 >
                   <thead className="th-add">
                     <tr>
@@ -207,7 +206,7 @@ export default function NotifikasiPelamar() {
                         No
                       </th>
                       <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
-                        Nama Pelamar
+                        Nama Lengkap
                       </th>
                       <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
                         Email
@@ -220,39 +219,78 @@ export default function NotifikasiPelamar() {
                       </th>
                     </tr>
                   </thead>
-                  {/* <tbody className=""> */}
-                  {/* {paginatedUsers.map((val, idx) => {
-                      if (val.role === "admin") {
+                  <tbody className="">
+                    {" "}
+                    {filteredUsers.length === 0 ? (
+                      <tr>
+                        <td
+                          colSpan="5"
+                          className="text-center py-4 whitespace-nowrap text-gray-500"
+                        >
+                          <div className="flex flex-col items-center">
+                            <svg
+                              className="w-12 h-12 text-gray-400 mb-3"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                              ></path>
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M2 17.555V19a1 1 0 001 1h18a1 1 0 001-1v-1.445a3.97 3.97 0 00-1.105-2.788 3.97 3.97 0 00-2.789-1.105 3.97 3.97 0 00-2.788 1.105 3.97 3.97 0 00-1.105 2.788 3.97 3.97 0 00-1.105-2.788 3.97 3.97 0 00-2.788-1.105 3.97 3.97 0 00-2.789 1.105 3.97 3.97 0 00-1.105 2.788z"
+                              ></path>
+                            </svg>
+                            <p className="text-sm">Pelamar tidak ditemukan.</p>
+                          </div>
+                        </td>
+                      </tr>
+                    ) : (
+                      paginatedUsers.map((val, idx) => {
                         return (
                           <tr key={idx}>
                             <td className="border-blue-300 left-0 py-2">
                               {offset + idx + 1}
                             </td>
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                              {val.namaSekolah}
+                              {val.namaLengkap}
                             </td>
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">
                               {val.email}
                             </td>
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                              {val.status !== null &&
-                              val.status === "Diterima" ? (
-                                <>Diterima</>
-                              ) : val.status === null ? (
-                                <>Belum Diterima</>
-                              ) : (
-                                <>NonAktif</>
-                              )}
+                              {val.status}
                             </td>
                             <td className="whitespace-nowrap text-ceter py-2">
                               {val.status !== null &&
-                              val.status === "Diterima" ? (
-                                <button
-                                  className="text-white bg-gray-400 rounded-lg mx-2 active:bg-slate-300 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none my-5 md:my-2 ease-linear transition-all duration-150"
-                                  onClick={() => non_aktif(val.id)}
-                                >
-                                  Non Aktifkan
-                                </button>
+                              val.status === "melamar" ? (
+                                <>
+                                  <a
+                                    className="text-white bg-blue-600 rounded-lg mx-2 active:bg-slate-300 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none my-5 md:my-2 ease-linear transition-all duration-150"
+                                    href={"/detail-pelamar/" + val.id}
+                                  >
+                                    Detail
+                                  </a>
+                                  <button
+                                    className="text-white bg-green-400 rounded-lg mx-2 active:bg-slate-300 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none my-5 md:my-2 ease-linear transition-all duration-150"
+                                    onClick={() => Terima(val.id)}
+                                  >
+                                    Terima
+                                  </button>
+                                  <button
+                                    className="text-white bg-red-400 rounded-lg mx-2 active:bg-slate-300 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none my-5 md:my-2 ease-linear transition-all duration-150"
+                                    onClick={() => deleteUser(val.id)}
+                                  >
+                                    Hapus
+                                  </button>
+                                </>
                               ) : val.status === null ? (
                                 <>
                                   <button
@@ -279,11 +317,9 @@ export default function NotifikasiPelamar() {
                             </td>
                           </tr>
                         );
-                      } else {
-                        return null;
-                      }
-                    })}
-                  </tbody> */}
+                      })
+                    )}
+                  </tbody>
                 </table>
               </div>
               <ReactPaginate
@@ -316,79 +352,79 @@ export default function NotifikasiPelamar() {
               />
             </div>
             {modal ? (
-          <>
-            <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-              <div className="relative w-auto my-6 mx-auto max-w-3xl">
-                {/*content*/}
-                <div className="border-1 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                  {/*header*/}
-                  <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-                    <h3 className="text-3xl font-semibold">
-                      Kirim Pemberitahuan
-                    </h3>
-                    <button
-                      className="p-1 ml-auto bg-transparent border-0 opacity-20 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                      onClick={() => setModal(false)}
-                    >
-                      <span className="bg-transparent text-black h-6 w-6 text-2xl block outline-none focus:outline-none">
-                        ×
-                      </span>
-                    </button>
-                  </div>
-                  {/*body*/}
-                  <div className="relative flex-auto">
-                    <form
-                      ref={form}
-                      onSubmit={sendEmail}
-                      className="space-y-4 p-3"
-                    >
-                      <div>
-                        <div className="grid md:grid-cols-1 md:gap-6">
-                          <div className="relative">
-                            <label>Kirim Ke</label>
-                            <input
-                              type="email"
-                              name="email_from"
-                              className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                              placeholder="Masukan Email  "
-                              required
-                            />
-                          </div>
-                          <div className="relative">
-                            <label>Isi Pesan</label>
-                            <input
-                              type="textarea"
-                              name="message"
-                              className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                              required
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex items-center justify-between gap-5 p-3 border-t border-solid border-slate-200 rounded-b">
+              <>
+                <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+                  <div className="relative w-auto my-6 mx-auto max-w-3xl">
+                    {/*content*/}
+                    <div className="border-1 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                      {/*header*/}
+                      <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                        <h3 className="text-3xl font-semibold">
+                          Kirim Pemberitahuan
+                        </h3>
                         <button
-                          className="text-white bg-red-700 font-bold uppercase px-6 py-3.5 rounded-md text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                          type="button"
+                          className="p-1 ml-auto bg-transparent border-0 opacity-20 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                           onClick={() => setModal(false)}
                         >
-                          Batal
-                        </button>
-                        <button
-                          className="bg-gradient-to-r from-[#0b409c] to-[#10316b] text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                          type="submit"
-                        >
-                          Kirim
+                          <span className="bg-transparent text-black h-6 w-6 text-2xl block outline-none focus:outline-none">
+                            ×
+                          </span>
                         </button>
                       </div>
-                    </form>
+                      {/*body*/}
+                      <div className="relative flex-auto">
+                        <form
+                          ref={form}
+                          onSubmit={sendEmail}
+                          className="space-y-4 p-3"
+                        >
+                          <div>
+                            <div className="grid md:grid-cols-1 md:gap-6">
+                              <div className="relative">
+                                <label>Kirim Ke</label>
+                                <input
+                                  type="email"
+                                  name="email_from"
+                                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                                  placeholder="Masukan Email  "
+                                  required
+                                />
+                              </div>
+                              <div className="relative">
+                                <label>Isi Pesan</label>
+                                <input
+                                  type="textarea"
+                                  name="message"
+                                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                                  required
+                                />
+                              </div>
+                            </div>
+                          </div>
+                          <div className="flex items-center justify-between gap-5 p-3 border-t border-solid border-slate-200 rounded-b">
+                            <button
+                              className="text-white bg-red-700 font-bold uppercase px-6 py-3.5 rounded-md text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                              type="button"
+                              onClick={() => setModal(false)}
+                            >
+                              Batal
+                            </button>
+                            <button
+                              className="bg-gradient-to-r from-[#0b409c] to-[#10316b] text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                              type="submit"
+                            >
+                              Kirim
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                      {/*footer*/}
+                    </div>
                   </div>
-                  {/*footer*/}
                 </div>
-              </div>
-            </div>
-            <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
-          </>
-        ) : null}
+                <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+              </>
+            ) : null}
           </main>
         </div>
       </div>

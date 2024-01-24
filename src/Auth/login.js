@@ -27,10 +27,12 @@ export default function Login() {
   
       localStorage.setItem("token", data.data.token);
       localStorage.setItem("role", data.data.data.role);
-      localStorage.setItem("id", data.data.data.id);
-      localStorage.setItem("userId", data.data.userId);
+      localStorage.setItem("id",data.data.data.id);
+      localStorage.setItem("userId",data.data.data.id);
  
       if (data.data.data.role === "admin") {
+
+      localStorage.setItem("pekerjaanId",data.data.data.id);
         Swal.fire({
           icon: "success",
           title: "Berhasil masuk",
