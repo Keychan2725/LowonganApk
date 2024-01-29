@@ -313,8 +313,14 @@ export default function NotifikasiPelamar() {
                                     Hapus
                                   </button>
                                 </>
-                              ) : val.status !== null ? (
+                              ) : val.status !== "diterima" ? (
                                 <>
+                                  <a
+                                    className="text-white bg-blue-600 rounded-lg mx-2 active:bg-slate-300 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none my-5 md:my-2 ease-linear transition-all duration-150"
+                                    href={"/detail-pelamar/" + val.id}
+                                  >
+                                    Detail
+                                  </a>
                                   <button
                                     className="text-white bg-purple-400 rounded-lg mx-2 active:bg-slate-300 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none my-5 md:my-2 ease-linear transition-all duration-150"
                                     onClick={() => Batal(val.id)}
