@@ -40,12 +40,12 @@ export default function LamarPekerjaan() {
       Swal.fire({
         position: "center",
         icon: "success",
-        title: "Berhasil ditambahkan , Silahkan tunggu pesan dari email anda",
+        title: "Berhasil melamar , Silahkan tunggu pesan dari email anda",
         showConfirmButton: false,
         timer: 1500,
       });
       setTimeout(() => {
-        navigate("/dashboard");
+        window.location.href= "/dashboard";
       }, 1500);
     } catch (err) {
       console.log(err);

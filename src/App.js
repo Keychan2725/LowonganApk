@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import "../src/assets/styles/index.css";
 import "../src/assets/styles/tailwind.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import Landing from "./Pages/Landing";
 import Profile from "./Pages/Profile";
 import Settings from "./Pages/User/Settings";
@@ -30,13 +30,20 @@ import HistoryPekerjaan from "./Pages/Admin/HistoryPekerjaan";
 import UploadFotoPekerjaan from "./Pages/Admin/UploadFotoPekerjaan";
 import PrivateUpload from "./Router/PrivateUpload";
 import DetailPelamar from "./Pages/Admin/DetailPelamar";
+import DetailPekerjaan from "./Pages/User/DetailPekerjaan";
+import DetailPekerjaanAdmin from "./Pages/Admin/DetailPekerjaanAdmin";
+import IconLoader from "./Loading/IconLoader";
+import DetailPekerjaanUser from "./Pages/User/DetailPekerjaanUser";
 
 function App() {
   useEffect(() => {
     initFlowbite();
   }, []);
+
+
   return (
-    <div className="App">
+    <div className="App ">
+
       <BrowserRouter>
         <Routes>
           <Route
@@ -55,9 +62,9 @@ function App() {
           <Route
             path="/registrasi-2"
             element={
-                <PrivateReg>
-                  <Register2 />
-                </PrivateReg>
+              <PrivateReg>
+                <Register2 />
+              </PrivateReg>
             }
           />
           <Route
@@ -83,11 +90,9 @@ function App() {
           <Route
             path="/register-admin-2"
             element={
-      
-                <PrivateSuperAdmin>
-                  <RegistrasiAdmin2/>
-                </PrivateSuperAdmin>
- 
+              <PrivateSuperAdmin>
+                <RegistrasiAdmin2 />
+              </PrivateSuperAdmin>
             }
           />
           <Route
@@ -122,6 +127,26 @@ function App() {
             }
           />
           <Route
+            path="/detail-pekerjaan/:id"
+            element={
+              <PrivateRoute>
+                <PrivateHome>
+                  <DetailPekerjaan />
+                </PrivateHome>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/detail-pekerjaan-user/:userId"
+            element={
+              <PrivateRoute>
+                <PrivateHome>
+                  <DetailPekerjaanUser />
+                </PrivateHome>
+              </PrivateRoute>
+            }
+          />
+          <Route
             path="/lamar-pekerjaan/:id"
             element={
               <PrivateRoute>
@@ -131,7 +156,7 @@ function App() {
               </PrivateRoute>
             }
           />
- 
+
           <Route
             path="/notifikasi-pelamar"
             element={
@@ -193,7 +218,17 @@ function App() {
             }
           />
           <Route
-            path="/uploadFoto-pekerjaan"
+            path="/detail-pekerjaanAdmin/:id"
+            element={
+              <PrivateRoute>
+                <PrivateSuperAdmin>
+                  <DetailPekerjaanAdmin />
+                </PrivateSuperAdmin>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/pekerjaan/:id/uploadImage"
             element={
               <PrivateRoute>
                 <PrivateSuperAdmin>

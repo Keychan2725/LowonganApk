@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import SidebarAdmin from "../../components/Sidebar/SidebarAdmin";
 import Swal from "sweetalert2";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function TambahPekerjaan() {
   const [namaPekerjaan, setNamaPekerjaan] = useState("");
@@ -13,9 +13,10 @@ export default function TambahPekerjaan() {
   const [tentangPekerjaan, setTentangPekerjaan] = useState("");
   const navigate = useNavigate();
 
+
   const tambahPekerjaan = async (e) => {
     e.preventDefault();
-
+  
     const tambah = {
       namaPekerjaan: namaPekerjaan,
       email: email,
@@ -24,20 +25,37 @@ export default function TambahPekerjaan() {
       tentangPekerjaan: tentangPekerjaan,
       userId: userId,
     };
-
+  
     try {
-      await axios.post(`http://localhost:8080/api/pekerjaan/add  `, tambah);
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "Berhasil menambahkan data",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      setTimeout(() => {
- 
-       navigate("/uploadFoto-pekerjaan")
-      }, 1500);
+      const response = await axios.post(
+        `http://localhost:8080/api/pekerjaan/add`,
+        tambah
+      );
+  
+      console.log("Response Data:", response.data);
+  
+      if (response.data.startsWith("redirect:")) {
+        const redirectPath = response.data.replace("redirect:", "");
+        
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Berhasil menambahkan data",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+  
+        navigate(redirectPath);
+      } else {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Terjadi Kesalahan!",
+          text: "ID tidak ditemukan",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
     } catch (err) {
       console.log(err);
       Swal.fire({
@@ -50,8 +68,6 @@ export default function TambahPekerjaan() {
       });
     }
   };
-
-   
   return (
     <>
       <SidebarAdmin />
@@ -133,6 +149,22 @@ export default function TambahPekerjaan() {
                         />
                       </div>
                     </div>
+                    {/* <div className="w-full lg:w-12/12 px-4">
+                      <div className="relative w-full mb-3">
+                        <label
+                          className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                          htmlFor="image-input"
+                        >
+                          Foto Pekerjaan
+                        </label>
+                        <input
+                          type="file"
+                          id="image-input"
+                          accept="image/*"
+                          className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        />
+                      </div>
+                    </div> */}
                   </div>
 
                   <hr className="mt-6 border-b-1 border-blueGray-300" />
@@ -159,7 +191,7 @@ export default function TambahPekerjaan() {
                       type="submit"
                       className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                     >
-                      Lanjut Upload Foto
+                      Tambah Data Pekerjaan
                     </button>
                   </div>
                 </form>

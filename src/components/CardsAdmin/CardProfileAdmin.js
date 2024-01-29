@@ -85,39 +85,7 @@ export default function CardProfileAdmin() {
       });
     }
   };
-  function handleDeleteImage() {
-    Swal.fire({
-      title: "Yakin ingin menghapus Foto ?",
-      text: "Tindakan ini dapat dibatalkan!",
-      icon: "question",
-      showCancelButton: true,
-      confirmButtonColor: "#dc3545",
-      cancelButtonColor: "#29b6f6",
-      confirmButtonText: "Ya, hapus Foto ?",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axios
-          .delete(`http://localhost:8080/api/user/delete-image/${id}`)
-          .then((response) => {
-            Swal.fire({
-              icon: "success",
-              title: "Foto berhasil dihapus!",
-              text: response.data,
-            });
-            window.location.reload();
-          })
-          .catch((error) => {
-            Swal.fire({
-              icon: "error",
-              title: "Gagal menghapus Foto !",
-              text:
-                error.response.data.message ||
-                "Terjadi kesalahan saat menghapus Foto",
-            });
-          });
-      }
-    });
-  }
+  
   useEffect(() => {
     getDataUser();
     getAkun();

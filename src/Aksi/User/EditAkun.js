@@ -17,7 +17,7 @@ export default function EditAkun() {
   const [usia, setUsia] = useState("");
   const [imgUser, setImgUser] = useState("");
   const [password, setPassword] = useState("");
-
+  const [inputValue, setInputValue] = useState("");
   const [agama, setAgama] = useState("");
   const [namaLengkap, setNamaLengkap] = useState("");
   const [alamatRumah, setAlamatRumah] = useState("");
@@ -80,7 +80,6 @@ export default function EditAkun() {
   const handleImageChange = (event) => {
     const imageFile = event.target.files[0];
 
-    // Validate file format (according to backend)
     const allowedExtensions = ["jpg", "jpeg", "png", "gif", "webp"];
     const fileExtension = imageFile.name.split(".").pop().toLowerCase();
     if (!allowedExtensions.includes(fileExtension)) {
@@ -91,7 +90,6 @@ export default function EditAkun() {
       return;
     }
 
-    // Validate file size (according to backend)
     if (imageFile.size > 50_000_000) {
       Swal.fire({
         icon: "warning",
@@ -100,18 +98,12 @@ export default function EditAkun() {
       return;
     }
 
-    // Read file content using FileReader
     const reader = new FileReader();
 
     reader.onload = (event) => {
-      // Use fileContents if needed for preview or processing
-      // const fileContents = event.target.result;
-
-      // Continue with the upload process
       const formData = new FormData();
       formData.append("image", imageFile);
 
-      // Display loading indicator
       Swal.fire({
         title: "Sedang Mengupload File",
         icon: "loading",
@@ -126,25 +118,20 @@ export default function EditAkun() {
           },
         })
         .then((response) => {
-          // Close loading indicator on success
           Swal.close();
 
-          // Display success message
           Swal.fire({
             icon: "success",
             text: "Gambar berhasil diupload",
           });
 
-          // Set the image preview or update the state as needed
           setImgUser(response.data);
         })
         .catch((error) => {
           console.error(error);
 
-          // Close loading indicator on error
           Swal.close();
 
-          // Display error message
           Swal.fire({
             icon: "error",
             title: "Gagal mengupload gambar",
@@ -153,7 +140,6 @@ export default function EditAkun() {
         });
     };
 
-    // Handle FileReader errors
     reader.onerror = () => {
       console.error("Error reading the file.");
       Swal.fire({
@@ -162,7 +148,6 @@ export default function EditAkun() {
       });
     };
 
-    // Read the file as a data URL
     reader.readAsDataURL(imageFile);
   };
 
@@ -176,6 +161,7 @@ export default function EditAkun() {
         alamatRumah: alamatRumah,
         noTelepon: noTelepon,
         noNik: noNik,
+        gender: gender,
         noKk: noKk,
         agama: agama,
       })
@@ -254,7 +240,6 @@ export default function EditAkun() {
         return;
       }
 
-      // Assuming you have a function to retrieve the authentication token
       const token = await AuthToken;
       const response = await axios.get(
         `http://localhost:8080/api/identitasUsers/${userId}`,
@@ -267,14 +252,14 @@ export default function EditAkun() {
       );
 
       const dataUser = response.data;
-      setNamaLengkap(dataUser.namaLengkap);
-      setAgama(dataUser.agama);
-      setNoKk(dataUser.noKk);
-      setNoNik(dataUser.noNik);
-      setNoTelepon(dataUser.noTelepon);
-      setNoTelepon(dataUser.gender);
-      setAlamatRumah(dataUser.alamatRumah);
-      setTentangSaya(dataUser.tentangSaya);
+      setNamaLengkap(dataUser[0].namaLengkap);
+      setAgama(dataUser[0].agama);
+      setNoKk(dataUser[0].noKk);
+      setNoNik(dataUser[0].noNik);
+      setNoTelepon(dataUser[0].noTelepon);
+      setGender(dataUser[0].gender);
+      setAlamatRumah(dataUser[0].alamatRumah);
+      setTentangSaya(dataUser[0].tentangSaya);
     } catch (error) {
       console.error("Error fetching data:", error);
       Swal.fire({
@@ -289,14 +274,9 @@ export default function EditAkun() {
   }, []);
 
   useEffect(() => {
-    // Get the current URL
     setCurrentUrl(window.location.href);
   }, []);
 
-  const handleBackClick = () => {
-    // Navigate back to the previous page
-    navigate(-1);
-  };
   return (
     <>
       <Sidebar />
@@ -465,7 +445,7 @@ export default function EditAkun() {
                 <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
                   Profile User
                 </h6>
-                <form onSubmit={DataAKun}>
+                <form onSubmit={DataAKun} className="flex flex-wrap ">
                   <div className="relative flex flex-wrap">
                     <div className="w-full lg:w-12/12 px-4">
                       <div className="relative w-full mb-3">
@@ -534,55 +514,58 @@ export default function EditAkun() {
                       </div>
                     </div>
                     <div className="w-full lg:w-6/12 px-4">
-                      <div className="relative w-full  mt-1">
+                      <div className="relative w-full mt-1">
                         <label
                           className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                           htmlFor="grid-password"
                         >
                           Kata Sandi
                         </label>
-                        <input
-                          type={passwordType}
-                          className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                          placeholder="Kata Sandi Baru"
-                          onChange={(e) => passwordChange(e)}
-                        />
-                        <span
-                          onClick={togglePassword}
-                          className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
-                        >
-                          {passwordType === "password" ? (
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="16"
-                              height="16"
-                              fill="currentColor"
-                              className="bi bi-eye-slash"
-                              viewBox="0 0 16 16"
-                            >
-                              <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z" />
-                              <path d="M3.35 5.47c-.18.16-.353.322-.518.487A13.134 13.134 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7.029 7.029 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12-.708.708z" />
-                            </svg>
-                          ) : (
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="16"
-                              height="16"
-                              fill="currentColor"
-                              className="bi bi-eye"
-                              viewBox="0 0 16 16"
-                            >
-                              <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
-                              <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
-                            </svg>
-                          )}
-                        </span>
+                        <div className="relative">
+                          <input
+                            type={passwordType}
+                            className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                            placeholder="Kata Sandi Baru"
+                            onChange={(e) => passwordChange(e)}
+                          />
+                          <span
+                            onClick={togglePassword}
+                            className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
+                          >
+                            {passwordType === "password" ? (
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                fill="currentColor"
+                                className="bi bi-eye-slash"
+                                viewBox="0 0 16 16"
+                              >
+                                <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z" />
+                                <path d="M3.35 5.47c-.18.16-.353.322-.518.487A13.134 13.134 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7.029 7.029 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12-.708.708z" />
+                              </svg>
+                            ) : (
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                fill="currentColor"
+                                className="bi bi-eye"
+                                viewBox="0 0 16 16"
+                              >
+                                <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
+                                <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
+                              </svg>
+                            )}
+                          </span>
+                        </div>
                       </div>
                     </div>
-
+                  </div>
+                  <div className="w-full px-4">
                     <button
                       type="submit"
-                      className="sm:p-5 bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                      className="mt-2 bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150 float-right"
                     >
                       Edit Data User
                     </button>

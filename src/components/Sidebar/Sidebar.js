@@ -5,6 +5,7 @@ import Logo from "../../assets/img/letter-lp-logo-concept-on-white-background-ve
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "axios";
+import IconLoader from "../../Loading/IconLoader";
 
 export default function Sidebar() {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ export default function Sidebar() {
   const [usia, setUsia] = useState("");
   const [password, setPassword] = useState("");
   const [imgUser, setImgUser] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const getAkun = async () => {
     try {
@@ -63,8 +65,24 @@ export default function Sidebar() {
   useEffect(() => {
     getAkun();
   }, []);
+
+  const handleNavigation = (to) => {
+    setLoading(true);
+    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+    delay(1000)
+      .then(() => {
+        window.location.href =to;
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
   return (
     <>
+      {loading && <IconLoader />}
+
       <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-700 dark:bg-gray-800 dark:border-gray-700 bg-gradient-to-l from-black to-white">
         <div className="px-3 py-3 lg:px-5 lg:pl-3">
           <div className="flex items-center justify-between">
@@ -171,7 +189,7 @@ export default function Sidebar() {
           <ul className="space-y-2 font-medium">
             <li>
               <a
-                href="/dashboard"
+                onClick={() => handleNavigation("/dashboard")}
                 className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-800 hover:text-white group"
               >
                 <svg
@@ -194,7 +212,7 @@ export default function Sidebar() {
             </li>
             <li>
               <a
-                href="/cari-pekerjaan"
+                onClick={() => handleNavigation("/cari-pekerjaan")}
                 className="flex items-center p-2 text-gray-900 rounded-lg   hover:bg-gray-800 hover:text-white group"
               >
                 <svg
@@ -217,7 +235,7 @@ export default function Sidebar() {
             </li>
             <li>
               <a
-                href="/akun"
+                onClick={() => handleNavigation("/akun")}
                 className="flex items-center p-2 text-gray-900 rounded-lg   hover:bg-gray-800 hover:text-white group"
               >
                 <svg

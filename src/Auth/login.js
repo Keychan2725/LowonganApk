@@ -10,41 +10,41 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const [loginStatus, setLoginStatus] = useState(false);  
-
-  
-
- 
+  const [loginStatus, setLoginStatus] = useState(false);
 
   const login = async (e) => {
     e.preventDefault();
-  
+
     try {
       const { data } = await axios.post("http://localhost:8080/api/login", {
         email: email,
         password: password,
       });
-  
+
       localStorage.setItem("token", data.data.token);
       localStorage.setItem("role", data.data.data.role);
-      localStorage.setItem("id",data.data.data.id);
-      localStorage.setItem("userId",data.data.data.id);
- 
-      if (data.data.data.role === "admin") {
+      localStorage.setItem("id", data.data.data.id);
+      localStorage.setItem("userId", data.data.data.id);
 
-      localStorage.setItem("pekerjaanId",data.data.data.id);
+      if (data.data.data.role === "admin") {
+        localStorage.setItem("pekerjaanId", data.data.data.id);
         Swal.fire({
           icon: "success",
           title: "Berhasil masuk",
-        });              
-        window.location.href = "/dashboardAdmin";
+          showConfirmButton: false,
+        });
+        setTimeout(() => {
+          window.location.href = "/dashboardAdmin";
+        }, 800);
       } else if (data.data.data.role === "user") {
-
-          Swal.fire({
-        icon: "success",
-        title: "Berhasil masuk",
-      });
-        window.location.href = "/dashboard";
+        Swal.fire({
+          icon: "success",
+          title: "Berhasil masuk",
+          showConfirmButton: false,
+        });
+        setTimeout(() => {
+          window.location.href = "/dashboard";
+        }, 800);
       } else {
         console.error("Invalid role:", data.data.role);
       }
@@ -71,7 +71,7 @@ export default function Login() {
   return (
     <>
       <section className=" container h-auto w-auto mx-auto my-20 ">
-                <div className="g-6 flex  flex-wrap items-center justify-center text-neutral-800 dark:text-neutral-200">
+        <div className="g-6 flex  flex-wrap items-center justify-center text-neutral-800 dark:text-neutral-200">
           <div className="w-full">
             <div className="block rounded-lg bg-white shadow-lg dark:bg-neutral-800">
               <div className="g-0 lg:flex lg:flex-wrap">
@@ -177,7 +177,8 @@ export default function Login() {
                   <div className="hidden lg:block w-full h-full">
                     <img
                       className="w-full h-full"
-src="https://img.freepik.com/free-vector/mobile-login-concept-illustration_114360-83.jpg?w=740&t=st=1704788136~exp=1704788736~hmac=8477a4143d0b27ed2b32e130f81bc223aa32dbaf1fc610198e98677fdb152346"                      alt="bg"
+                      src="https://img.freepik.com/free-vector/mobile-login-concept-illustration_114360-83.jpg?w=740&t=st=1704788136~exp=1704788736~hmac=8477a4143d0b27ed2b32e130f81bc223aa32dbaf1fc610198e98677fdb152346"
+                      alt="bg"
                     />
                   </div>
                 </div>

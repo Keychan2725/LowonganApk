@@ -46,81 +46,6 @@ export default function DashboardAdmin() {
     }
   };
 
-  const Terima = async (id) => {
-    try {
-      await axios.put(`http://localhost:8080/api/users/status/terima/${id}`, {
-        status: "Diterima",
-      });
-      Swal.fire({
-        icon: "success",
-        title: "Menerima users",
-      });
-      window.location.reload();
-    } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: error.response ? error.response.data.message : "Kesalahan",
-      });
-    }
-  };
-
-  const non_aktif = async (id) => {
-    try {
-      await axios.put(
-        `http://localhost:8080/api/users/status/non-aktif/${id}`,
-        {
-          status: null,
-        }
-      );
-      Swal.fire({
-        icon: "success",
-        title: "Non Aktif users",
-      });
-      window.location.reload();
-    } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: error.response ? error.response.data.message : "Kesalahan",
-      });
-    }
-  };
-
-  const deleteUser = async (id) => {
-    await Swal.fire({
-      title: "Anda yakin?",
-      text: "Yakin ingin menghapus data users ini? Pastikan sudah memberikan pemberitahuan melalui email",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Ya, hapus!",
-      cancelButtonText: "Batal",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        try {
-          await axios.delete(`http://localhost:8080/api/pelamar/${id}`);
-          await Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Berhasil Menghapus!",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          window.location.reload();
-        } catch (error) {
-          console.error(error);
-          Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Terjadi kesalahan saat menghapus data",
-          });
-        }
-      }
-    });
-  };
-
   useEffect(() => {
     axios
       .get(`http://localhost:8080/api/pekerjaan/user/${userId}`)
@@ -138,7 +63,7 @@ export default function DashboardAdmin() {
 
         setNumPelamar(numDataRows);
       });
-      getAll();
+    getAll();
   }, []);
 
   const offset = currentPage * itemsPerPage;
@@ -149,7 +74,7 @@ export default function DashboardAdmin() {
       <div className="  my-5 mt-24   ">
         <div className="flex justify-center">
           <main className="s-content w-[400px] md:w-[1125px]    md:px-24 mx-8 ">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:mx-auto md:grid-cols-2  gap-4">
               <div className="rounded-xl bg-white p-1 flex  border-gray-500 border-2">
                 <div className="rounded-xl p-4 h-[120px] flex items-center">
                   <div className="flex items-start">
@@ -175,67 +100,134 @@ export default function DashboardAdmin() {
                     </div>
                   </div>
                   <div className="ml-4">
-                    <p className="text-xl text-black">Total Pekerjaan</p>
+                    <p className="text-xl text-black">Total Pekerjaan Saya</p>
                     <p className="text-xl font-bold text-black">{numRows} </p>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="overflow-hidden overflow-x-auto rounded-lg border border-gray-200 md:ml-12 mr-2 my-12">
-              <table
-                className="min-w-full divide-gray-200 text-center p-5"
-                id="example"
-              >
-                <thead className="th-add">
+            <div className="grid grid-cols-1 px-2 md:grid-cols-3 rounded-t-lg py-2.5 bg-sky-900 text-white text-xl mt-12">
+              <div className="flex justify-center mb-2 md:justify-start md:pl-6">
+                Rekap Pelamar
+              </div>
+              <div className="flex flex-wrap justify-center col-span-2 gap-2 md:justify-end"></div>
+            </div>
+            <div className="overflow-x-auto w-full px-4 bg-white rounded-b-lg shadow">
+              <table className="my-4 w-full divide-y divide-gray-300 text-center">
+                <thead className="bg-gray-50">
                   <tr>
-                    <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 text-center tracking-wider">
+                    <th className="px-3 py-2 text-xs text-center text-gray-500">
                       No
                     </th>
-                    <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 text-center tracking-wider">
+                    <th className="px-3 py-2 text-xs text-center text-gray-500">
                       Nama Pelamar
                     </th>
-                    <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 text-center tracking-wider">
+                    <th className="px-3 py-2 text-xs text-center text-gray-500">
                       Email
                     </th>
-
-                    <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 text-center tracking-wider">
+                    <th className="px-3 py-2 text-xs text-center text-gray-500">
                       Status
                     </th>
-                    
                   </tr>
                 </thead>
-                <tbody className="">
-                  {paginatedUsers.map((val, idx) => {
-                    return (
-                      <tr key={idx}>
-                        <td className="border-blue-300 left-0 py-2 border-b border-black">
-                          {offset + idx + 1}
-                        </td>
-                        <td className="whitespace-nowrap px-4 py-2 text-gray-700 border-b border-black">
-                          {val.namaLengkap}
-                        </td>
-                        <td className="whitespace-nowrap px-4 py-2 text-gray-700 border-b border-black">
-                          {val.email}
-                        </td>
-                        {val.status === "melamar" ? (
-                          <td className="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm  ">
-                            <span class="relative inline-block px-3 py-1 font-semibold text-green-900  ">
-                              <span
-                                aria-hidden
-                                class="absolute inset-0 bg-green-200 opacity-50 rounded-full"
-                              ></span>
-                              <span class="relative text-xs">melamar</span>
-                            </span>
+                <tbody className="bg-white divide-y divide-gray-300">
+                  {filteredUsers.length === 0 ? (
+                    <tr>
+                      <td
+                        colSpan="5"
+                        className="text-center py-4 whitespace-nowrap text-gray-500"
+                      >
+                        <div className="flex flex-col items-center">
+                          <svg
+                            className="w-12 h-12 text-gray-400 mb-3"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                            ></path>
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M2 17.555V19a1 1 0 001 1h18a1 1 0 001-1v-1.445a3.97 3.97 0 00-1.105-2.788 3.97 3.97 0 00-2.789-1.105 3.97 3.97 0 00-2.788 1.105 3.97 3.97 0 00-1.105 2.788 3.97 3.97 0 00-1.105-2.788 3.97 3.97 0 00-2.788-1.105 3.97 3.97 0 00-2.789 1.105 3.97 3.97 0 00-1.105 2.788z"
+                            ></path>
+                          </svg>
+                          <p className="text-sm">Pelamar tidak ditemukan.</p>
+                        </div>
+                      </td>
+                    </tr>
+                  ) : (
+                    paginatedUsers.map((val, idx) => {
+                      return (
+                        <tr key={idx}>
+                          <td className="px-3 py-4 text-center">
+                            <div className="text-sm text-gray-900 ">
+                              {offset + idx + 1}
+                            </div>
                           </td>
-                        ) : (
-                          <td className="whitespace-nowrap px-4 py-2 text-gray-700 border-b border-black">
-                            Ditolak
+                          <td className="px-3 py-4 text-center text-gray-700  ">
+                            <div className="text-sm text-gray-900">
+                              {val.namaLengkap}
+                            </div>
                           </td>
-                        )}
-                        
-                      </tr>
-                    );
-                  })}
+                          <td className="px-3 py-4 text-center text-gray-700  ">
+                            <div className="text-sm text-gray-900">
+                              {val.email}
+                            </div>
+                          </td>
+                          {val.status === "melamar" ? (
+                            <>
+                              <td className="px-3 py-4 text-center text-gray-700   text-sm  ">
+                                <span className="relative inline-block px-3 py-1 font-semibold text-green-900  ">
+                                  <span
+                                    aria-hidden
+                                    className="absolute inset-0 bg-orange-400 opacity-50 rounded-full"
+                                  ></span>
+                                  <span className="relative text-xs">
+                                    melamar
+                                  </span>
+                                </span>
+                              </td>
+                            </>
+                          ) : val.status === "diterima" ? (
+                            <>
+                              <td className="px-3 py-4 text-center text-gray-700   text-sm  ">
+                                <span className="relative inline-block px-3 py-1 font-semibold text-green-900  ">
+                                  <span
+                                    aria-hidden
+                                    className="absolute inset-0 bg-green-400 opacity-50 rounded-full"
+                                  ></span>
+                                  <span className="relative text-xs">
+                                    Diterima
+                                  </span>
+                                </span>
+                              </td>
+                            </>
+                          ) : val.status === "ditolak" ? (
+                            <>
+                              <td className="px-3 py-4 text-center text-gray-700   text-sm  ">
+                                <span className="relative inline-block px-3 py-1 font-semibold text-green-900  ">
+                                  <span
+                                    aria-hidden
+                                    className="absolute inset-0 bg-green-400 opacity-50 rounded-full"
+                                  ></span>
+                                  <span className="relative text-xs">
+                                    Diterima
+                                  </span>
+                                </span>
+                              </td>
+                            </>
+                          ) : null}
+                        </tr>
+                      );
+                    })
+                  )}
                 </tbody>
               </table>
             </div>

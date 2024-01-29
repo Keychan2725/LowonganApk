@@ -29,14 +29,34 @@ export default function NotifikasiPelamar() {
 
   const Terima = async (id) => {
     try {
-      await axios.put(`http://localhost:8080/api/users/status/terima/${id}`, {
+      await axios.put(`http://localhost:8080/api/pelamar/terima/${id}`, {
         status: "Diterima",
       });
       Swal.fire({
         icon: "success",
-        title: "Menerima users",
+        title: "Menerima pelamar",
       });
-      window.location.reload();
+      setTimeout(() => {
+        window.location.reload();
+      }, 1500);
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error.response ? error.response.data.message : "Kesalahan",
+      });
+    }
+  };
+  const Batal = async (id) => {
+    try {
+      await axios.put(`http://localhost:8080/api/pelamar/batal/${id}`, {});
+      Swal.fire({
+        icon: "success",
+        title: "Batal menerima pelamar",
+      });
+      setTimeout(() => {
+        window.location.reload();
+      }, 1500);
     } catch (error) {
       Swal.fire({
         icon: "error",
@@ -71,7 +91,7 @@ export default function NotifikasiPelamar() {
   const deleteUser = async (id) => {
     await Swal.fire({
       title: "Anda yakin?",
-      text: "Yakin ingin menghapus data users ini? Pastikan sudah memberikan pemberitahuan melalui email",
+      text: "Yakin ingin menghapus data pelamar ini? Pastikan sudah memberikan pemberitahuan melalui email",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -106,10 +126,10 @@ export default function NotifikasiPelamar() {
     e.preventDefault();
     emailjs
       .sendForm(
-        "service_xj8ktpc",
-        "template_bg5lshe",
+        "service_uvzh9ku",
+        "template_bda84qt",
         form.current,
-        "BA_w1mVa2FDtDhetB"
+        "dF33S96RojNw8_rXn"
       )
       .then(
         (result) => {
@@ -121,7 +141,9 @@ export default function NotifikasiPelamar() {
               showConfirmButton: false,
               timer: 1500,
             });
-            window.location.href = "/notifikasi-pelamar";
+            setTimeout(() => {
+              window.location.href = "/notifikasi-pelamar";
+            }, 1000);
           }
         },
         (error) => {
@@ -219,8 +241,7 @@ export default function NotifikasiPelamar() {
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="">
-                    {" "}
+                  <tbody >
                     {filteredUsers.length === 0 ? (
                       <tr>
                         <td
@@ -253,6 +274,7 @@ export default function NotifikasiPelamar() {
                         </td>
                       </tr>
                     ) : (
+                      
                       paginatedUsers.map((val, idx) => {
                         return (
                           <tr key={idx}>
@@ -291,13 +313,13 @@ export default function NotifikasiPelamar() {
                                     Hapus
                                   </button>
                                 </>
-                              ) : val.status === null ? (
+                              ) : val.status !== null ? (
                                 <>
                                   <button
-                                    className="text-white bg-green-400 rounded-lg mx-2 active:bg-slate-300 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none my-5 md:my-2 ease-linear transition-all duration-150"
-                                    onClick={() => Terima(val.id)}
+                                    className="text-white bg-purple-400 rounded-lg mx-2 active:bg-slate-300 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none my-5 md:my-2 ease-linear transition-all duration-150"
+                                    onClick={() => Batal(val.id)}
                                   >
-                                    Terima
+                                  Batal
                                   </button>
                                   <button
                                     className="text-white bg-red-400 rounded-lg mx-2 active:bg-slate-300 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none my-5 md:my-2 ease-linear transition-all duration-150"
@@ -381,12 +403,32 @@ export default function NotifikasiPelamar() {
                           <div>
                             <div className="grid md:grid-cols-1 md:gap-6">
                               <div className="relative">
+                                <label>Nama Perusahaan</label>
+                                <input
+                                  type="text"
+                                  name="nama_perusahaan"
+                                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                                  placeholder="Masukan Nama Perusahaan  "
+                                  required
+                                />
+                              </div>
+                              <div className="relative">
+                                <label>Email Perusahaan</label>
+                                <input
+                                  type="email"
+                                  name="email_pekerjaan"
+                                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                                  placeholder="Masukan Email Perusahan "
+                                  required
+                                />
+                              </div>
+                              <div className="relative">
                                 <label>Kirim Ke</label>
                                 <input
                                   type="email"
-                                  name="email_from"
+                                  name="email_pelamar"
                                   className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                                  placeholder="Masukan Email  "
+                                  placeholder="Masukan Email Pelamar  "
                                   required
                                 />
                               </div>
@@ -395,7 +437,7 @@ export default function NotifikasiPelamar() {
                                 <input
                                   type="textarea"
                                   name="message"
-                                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                                  rows={4}                                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                                   required
                                 />
                               </div>

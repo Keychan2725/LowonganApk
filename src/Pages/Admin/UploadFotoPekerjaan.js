@@ -2,18 +2,18 @@ import React, { useState } from "react";
 import SidebarAdmin from "../../components/Sidebar/SidebarAdmin";
 import Swal from "sweetalert2";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 
 
 export default function UploadFotoPekerjaan(){
-    const [fotoPekerjaan, setFotoPekerjaan] = useState("");
-    const userId = localStorage.getItem("userId");
+  const [fotoPekerjaan, setFotoPekerjaan] = useState(null);
+  const userId = localStorage.getItem("userId");
     const AuthToken = localStorage.getItem("token");
+   const {id} = useParams();
 
 
 
-
-    const handleImageChange = (event , id) => {
+    const handleImageChange = (event ) => {
         const imageFile = event.target.files[0];
     
         // Validate file format (according to backend)
@@ -53,37 +53,35 @@ export default function UploadFotoPekerjaan(){
           const token =  AuthToken;
 
           axios
-            .put(
-              `http://localhost:8080/api/pekerjaan/upload-image/${id}`,
-              formData,
-              {
-                headers: {
-                  "Content-Type": "multipart/form-data",
-                  Authorization: `Bearer ${token}`,
-                },
-                withCredentials: true,
-              }
-            )
+          .put(
+            `http://localhost:8080/api/pekerjaan/${id}/uploadImage`,
+            formData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${token}`,
+              },
+              withCredentials: true,
+            }
+          )
             .then((response) => {
-              // Close loading indicator on success
-              Swal.close();
-    
-              // Display success message
+               Swal.close();
               Swal.fire({
                 icon: "success",
                 text: "Gambar berhasil diupload",
+                showConfirmButton: false,
+
               });
-    
-              // Set the image preview or update the state as needed
+              console.log("Response Data:", response.data);
               setFotoPekerjaan(response.data);
+              setTimeout(() => {
+                window.location.href = "/history-pekerjaan";
+              }, 1000);
+
             })
             .catch((error) => {
               console.error(error);
-    
-              // Close loading indicator on error
               Swal.close();
-    
-              // Display error message
               Swal.fire({
                 icon: "error",
                 title: "Gagal mengupload gambar",
@@ -133,8 +131,8 @@ export default function UploadFotoPekerjaan(){
                         <input
                           className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                           type="file"
-                          value={fotoPekerjaan}
-                          onChange={handleImageChange}
+                          accept="image/*"
+                           onChange={handleImageChange}
                         />
                       </div>
                     </div>

@@ -18,6 +18,7 @@ export default function CardSettingsAdmin() {
   const [agama, setAgama] = useState("");
   const [namaLengkap, setNamaLengkap] = useState("");
   const [alamatRumah, setAlamatRumah] = useState("");
+  const [gender, setGender] = useState("");
   const [tentangSaya, setTentangSaya] = useState("");
   const [noTelepom, setNoTelepon] = useState("");
   const [noKK, setNoKK] = useState("");
@@ -74,6 +75,7 @@ export default function CardSettingsAdmin() {
       setNoTelepon(dataUser[0].noTelepon);
       setAlamatRumah(dataUser[0].alamatRumah);
       setTentangSaya(dataUser[0].tentangSaya);
+      setGender(dataUser[0].gender);
   
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -93,10 +95,7 @@ export default function CardSettingsAdmin() {
     setCurrentUrl(window.location.href);
   }, []);
 
-  const handleBackClick = () => {
-    // Navigate back to the previous page
-    navigate(-1);
-  };
+ 
   return (
     <>
       <div className="relative flex flex-col min-w-0 break-words w-full my-6 mx-2 shadow-lg rounded-lg bg-blueGray-100 border-0">
@@ -150,7 +149,7 @@ export default function CardSettingsAdmin() {
                   />
                 </div>
               </div>
-              <div className="w-full lg:w-4/12 px-4">
+              <div className="w-full lg:w-6/12 px-4">
                 <div className="relative w-full mb-3">
                   <label
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -168,7 +167,7 @@ export default function CardSettingsAdmin() {
                   />
                 </div>
               </div>
-              <div className="w-full lg:w-4/12 px-4">
+              <div className="w-full lg:w-6/12 px-4">
                 <div className="relative w-full mb-3">
                   <label
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -183,7 +182,7 @@ export default function CardSettingsAdmin() {
                   />
                 </div>
               </div>
-              <div className="w-full lg:w-4/12 px-4">
+              <div className="w-full lg:w-6/12 px-4">
                 <div className="relative w-full mb-3">
                   <label
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -194,6 +193,21 @@ export default function CardSettingsAdmin() {
                   <input
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     defaultValue={agama === null ? "Belum Di isi" : agama}
+                    disabled
+                  />
+                </div>
+              </div>
+              <div className="w-full lg:w-6/12 px-4">
+                <div className="relative w-full mb-3">
+                  <label
+                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                    htmlFor="grid-password"
+                  >
+                    Gender
+                  </label>
+                  <input
+                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    defaultValue={gender === null ? "Belum Di isi" : gender}
                     disabled
                   />
                 </div>
