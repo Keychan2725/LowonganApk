@@ -3,7 +3,7 @@ import { Navigate, useLocation } from "react-router-dom";
 
 function PrivateSuperAdmin({ children }) {
   const location = useLocation();
-  if (localStorage.getItem("role") !== "super admin") {
+  if (localStorage.getItem("role") !== "admin") {
     return <Navigate to="/" state={{ from: location }} />;
   }
   return children;

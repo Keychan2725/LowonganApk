@@ -3,16 +3,17 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-export default function CardProfile() {
+export default function CardProfileAdmin() {
   const id = localStorage.getItem("id");
   const userId = localStorage.getItem("userId");
   const AuthToken = localStorage.getItem("token");
   const [username, setUsername] = useState("");
+  const [role, setRole] = useState("");
   const [email, setEmail] = useState("");
   const [imgUser, setImgUser] = useState("");
   const [usia, setUsia] = useState("");
-  const [role, setRole] = useState("");
   const [password, setPassword] = useState("");
+  const [lastLogin, setLastLogin] = useState("");
 
   const navigate = useNavigate();
 
@@ -40,6 +41,7 @@ export default function CardProfile() {
       setImgUser(dataUser.data.imgUser);
       setRole(dataUser.data.role);
       setUsia(dataUser.data.usia);
+      setLastLogin(dataUser.data.lastLogin);
     } catch (error) {
       console.error("Error fetching data:", error);
       Swal.fire({
@@ -51,14 +53,14 @@ export default function CardProfile() {
 
   const getDataUser = async () => {
     try {
-      if (!userId || userId === null || userId === undefined) {
+      if (!id || id === null || id === undefined) {
         console.error("userId is null or undefined");
         return;
       }
 
       const token = await AuthToken;
       const response = await axios.get(
-        `http://localhost:8080/api/identitasUsers/${userId}`,
+        `http://localhost:8080/api/identitasUsers/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -83,39 +85,7 @@ export default function CardProfile() {
       });
     }
   };
-  function handleDeleteImage() {
-    Swal.fire({
-      title: "Yakin ingin menghapus Foto ?",
-      text: "Tindakan ini dapat dibatalkan!",
-      icon: "question",
-      showCancelButton: true,
-      confirmButtonColor: "#dc3545",
-      cancelButtonColor: "#29b6f6",
-      confirmButtonText: "Ya, hapus Foto ?",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axios
-          .delete( `http://localhost:8080/api/user/delete-image/${id}`)
-          .then((response) => {
-            Swal.fire({
-              icon: "success",
-              title: "Foto berhasil dihapus!",
-              text: response.data,
-            });
-            window.location.reload();
-          })
-          .catch((error) => {
-            Swal.fire({
-              icon: "error",
-              title: "Gagal menghapus Foto !",
-              text:
-                error.response.data.message ||
-                "Terjadi kesalahan saat menghapus Foto",
-            });
-          });
-      }
-    });
-  }
+  
   useEffect(() => {
     getDataUser();
     getAkun();
@@ -154,13 +124,19 @@ export default function CardProfile() {
               {noTelepom === null ? "Nomer  Kosong " : noTelepom}
             </div>
             <div className="mb-2 text-blueGray-600 mt-10">
-              <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
+              <i className="upercase fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
               {role.toUpperCase()}
-
-            </div>
-        
+            </div>{" "}
+            {/* <div className="mb-2 text-blueGray-600">
+              <i
+                className={`fas fa-${
+                  lastLogin ? "check-circle" : "times-circle"
+                } mr-2 text-lg text-${lastLogin ? "green" : "red"}-400`}
+              ></i>
+              {lastLogin ? "Online" : "Offline"}
+            </div> */}
           </div>
-       
+         
         </div>
       </div>
     </>

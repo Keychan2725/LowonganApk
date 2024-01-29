@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import { TEInput, TERipple } from "tw-elements-react";
 import Logo from "../assets/img/letter-lp-logo-concept-on-white-background-vector-removebg-preview.png";
 
-export default function Register() {
+export default function RegisterAdmin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
@@ -48,16 +48,17 @@ export default function Register() {
         return;
       }
       const res = await axios.post(
-        "http://localhost:8080/api/user/addUser",
+        "http://localhost:8080/api/user/addAdmin",
         reg
       );
       Swal.fire({
         icon: "success",
         title: "Sukses!",
-        text: "Registrasi akun 1 telah berhasil",
+        text: "Registrasi akun telah berhasil",
       });
-      localStorage.setItem("id", res.data.data.id);
-      navigate("/registrasi-2");
+      localStorage.setItem("id", res.data.data.id)
+      localStorage.setItem("role", res.data.data.role)
+      navigate("/register-admin-2");
     } catch (error) {
       console.log(error);
     }
@@ -99,7 +100,7 @@ export default function Register() {
 
                   <form action="" onSubmit={register}>
                     <p className="mb-4 text-gray-700">
-                      Silahkan Registrasi Untuk Membuat Akun
+                      Silahkan Registrasi Untuk Membuat Akun Admin
                     </p>
                  <div className="d-flex grid grid-cols-1 gap-2 justify-between md:grid-cols-2">
                  <div className="mb-4 text-black">
@@ -210,7 +211,7 @@ export default function Register() {
                 <div className="hidden lg:block w-full h-full">
                   <img
                     className="w-full h-full"
-                    src="https://img.freepik.com/free-vector/sign-up-concept-illustration_114360-7965.jpg"
+                    src="https://img.freepik.com/free-vector/flat-design-illustration-customer-support_23-2148887720.jpg?w=740&t=st=1705750971~exp=1705751571~hmac=760f1859d3e3ebd521bdfcc13f981557cf06301edb0e006f6b1ac98e8c6bd9aa"
                     alt="bg"
                   />
                 </div>

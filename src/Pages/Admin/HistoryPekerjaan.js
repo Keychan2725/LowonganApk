@@ -1,29 +1,59 @@
 import React, { useEffect, useState } from "react";
-import Sidebar from "../../components/Sidebar/Sidebar";
+import SidebarAdmin from "../../components/Sidebar/SidebarAdmin";
 import axios from "axios";
 import Swal from "sweetalert2";
-import AOS from "aos";
-import "aos/dist/aos.css";
 
-export default function CariPekerjaan() {
+export default function HistoryPekerjaan() {
   const [pekerjaan, setPekerjaan] = useState([]);
-  const [filterPekerjaan, setFilterPekerjaan] = useState([]);
- 
+  const [showModal, setShowModal] = React.useState(false);
+  const [loading, setLoading] = useState([]);
+  const [selectedDetail, setSelectedDetail] = useState(null);
+  const AuthToken = localStorage.getItem("token");
+  const userId = localStorage.getItem("userId");
   const [searchTerm, setSearchTerm] = useState("");
+  const [filterPekerjaan, setFilterPekerjaan] = useState([]);
 
-  // useEffect(() => {
-  //   AOS.init({
-  //     duration: 1000,
-  //     easing: "ease-in-out",
-  //   });
-  // }, [])
   useEffect(() => {
-    axios.get(`http://localhost:8080/api/pekerjaan/all`).then((res) => {
-      setPekerjaan(res.data);
-      setFilterPekerjaan(res.data);
-    });
+    axios
+      .get(`http://localhost:8080/api/pekerjaan/user/${userId}`)
+      .then((res) => {
+        setPekerjaan(res.data);
+      });
   }, []);
- 
+
+  const deletePekerjaan = async (id) => {
+    await Swal.fire({
+      title: "Anda yakin?",
+      text: "Yakin ingin menghapus data Pekerjaan ini?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya, hapus!",
+      cancelButtonText: "Batal",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await axios.delete(`http://localhost:8080/api/pekerjaan/${id}`);
+          await Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Berhasil Menghapus!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          window.location.reload();
+        } catch (error) {
+          console.error(error);
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Terjadi kesalahan saat menghapus data",
+          });
+        }
+      }
+    });
+  };
   const calculateTimeAgo = (timestamp) => {
     const currentDate = new Date();
     const postDate = new Date(timestamp);
@@ -75,10 +105,10 @@ export default function CariPekerjaan() {
 
   return (
     <>
-      <Sidebar />
-      <div className="md:px-4 sm:mx-12 mt-24">
-        <div className="flex justify-center w-[100%]">
-          <main className="s-content md:w-[1800px] md:ml-56 md:px-10 mx-8">
+      <SidebarAdmin />
+      <div className="md:px-4   sm:mx-12 mt-24   ">
+        <div className="flex justify-between items-center w-[100%]">
+          <main className="s-content   md:w-[1800px] md:ml-56    md:px-10 mx-8 ">
             <div className="flex justify-between items-center mb-4 md:my-5 ">
               <div>
                 <h1 className="text-2xl font-semibold"></h1>
@@ -86,14 +116,14 @@ export default function CariPekerjaan() {
               <div>
                 <input
                   type="text"
-                  placeholder="Cari Pekerjaan"
+                  placeholder="Cari History Pekerjaan"
                   value={searchTerm}
                   onChange={handleSearchChange}
                   className="border rounded-lg p-2"
                 />
               </div>
             </div>
-            <div className="flex flex-wrap md:grid md:grid-cols-3 gap-3 sm:mt-24">
+            <div className="flex flex-wrap md:grid md:grid-cols-3 gap-3  ">
               {filteredPekerjaan.length === 0 ? (
                 <div className="col-span-1 flex flex-nowrap lg:mx-auto md:ml-8 ml-5 mb-5">
                   <div className="inline-block px-3 mb-1 relative rounded-lg items-center">
@@ -118,25 +148,25 @@ export default function CariPekerjaan() {
                       ></path>
                     </svg>
                     <p className="text-sm text-center mr-5">
-                      Pekerjaan tidak ditemukan.
+                     History pekerjaan tidak ditemukan.
                     </p>
                   </div>
                 </div>
               ) : (
                 filteredPekerjaan.map((pekerjaan) => (
-                  <div className="col-span-1 flex flex-nowrap lg:ml-12 md:ml-12 ml-5 mb-5">
+                  <div className="flex flex-nowrap lg:ml-12 md:ml-12 ml-5">
                     <div className="inline-block px-3 mb-1 relative border border-gray-300 rounded-lg">
                       <img
-                        className="w-64 h-64 my-2 max-w-xs overflow-hidden rounded-lg shadow-md"
+                        className="w-64 h-64 my-2 max-w-xs  rounded-lg shadow-md overflow-x-auto-hidden"
                         src={pekerjaan.fotoPekerjaan}
                         alt=""
                       />
 
                       <div className="block p-4">
-                        <h3 className="text-xl font-semibold mb-2 text-gray-800">
+                        <h3 className="text-xl font-semibold mb-2 text-gray-800  ">
                           {pekerjaan.namaPekerjaan}
                         </h3>
-                        <div className="flex gap-2 mb-1">
+                        <div className="flex gap-2">
                           <svg
                             className="w-5 h-5 text-gray-500 transition duration-75 hover:text-white dark:text-gray-400 group-hover:text-white dark:group-hover:text-white"
                             xmlns="http://www.w3.org/2000/svg"
@@ -151,21 +181,21 @@ export default function CariPekerjaan() {
                             {pekerjaan.alamatPekerjaan}
                           </p>
                         </div>
+                      </div>
 
-                        <div className="flex justify-around items-center mt-2">
-                          <a
-                            className="text-center pt-1  w-24 h-8 bg-blue-500 text-white active:bg-blue-200 font-bold uppercase text-sm rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
-                            href={"/detail-pekerjaan/" + pekerjaan.id}
-                          >
-                            Detail
-                          </a>
-                          <a
-                            className="w-24 h-8 rounded-lg text-center text-white my-5 font-bold uppercase justify-self-end bg-lime-400 hover:bg-gray-300 hover:text-dark"
-                            href={"/lamar-pekerjaan/" + pekerjaan.userId}
-                          >
-                            Lamar
-                          </a>
-                        </div>
+                      <div className="flex justify-around items-center mt-2 mb-4">
+                        <a
+                          className="w-24 h-8 text-center pt-1 bg-blue-500 text-white active:bg-blue-200 font-bold uppercase text-sm rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
+                          href={"/detail-pekerjaanAdmin/" + pekerjaan.id}
+                        >
+                          Detail
+                        </a>
+                        <button
+                          className="w-24 h-8 bg-rose-500 text-white active:bg-blue-200 font-bold uppercase text-sm rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
+                          onClick={() => deletePekerjaan(pekerjaan.id)}
+                        >
+                          Hapus
+                        </button>
                       </div>
                       <hr className="font-semibold" />
                       <div className="flex gap-2 my-5 mx-3">
@@ -188,6 +218,8 @@ export default function CariPekerjaan() {
                 ))
               )}
             </div>
+
+         
           </main>
         </div>
       </div>

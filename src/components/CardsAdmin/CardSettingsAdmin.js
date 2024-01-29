@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 // components
 
-export default function CardSettings() {
+export default function CardSettingsAdmin() {
   const [currentUrl, setCurrentUrl] = useState("");
   const navigate = useNavigate();
   const id = localStorage.getItem("id");
@@ -18,12 +18,11 @@ export default function CardSettings() {
   const [agama, setAgama] = useState("");
   const [namaLengkap, setNamaLengkap] = useState("");
   const [alamatRumah, setAlamatRumah] = useState("");
+  const [gender, setGender] = useState("");
   const [tentangSaya, setTentangSaya] = useState("");
   const [noTelepom, setNoTelepon] = useState("");
   const [noKK, setNoKK] = useState("");
-  const [Gender, setGender] = useState("");
   const [noNik, setNoNik] = useState("");
-  const [UserId, setUserId] = useState("");
 
   const getAkun = async () => {
     try {
@@ -68,14 +67,16 @@ export default function CardSettings() {
       );
 
       const dataUser = response.data;
+ 
       setNamaLengkap(dataUser[0].namaLengkap);
       setAgama(dataUser[0].agama);
       setNoKK(dataUser[0].noKk);
       setNoNik(dataUser[0].noNik);
       setNoTelepon(dataUser[0].noTelepon);
       setAlamatRumah(dataUser[0].alamatRumah);
-      setGender(dataUser[0].gender);
       setTentangSaya(dataUser[0].tentangSaya);
+      setGender(dataUser[0].gender);
+  
     } catch (error) {
       console.error("Error fetching data:", error);
       Swal.fire({
@@ -94,21 +95,17 @@ export default function CardSettings() {
     setCurrentUrl(window.location.href);
   }, []);
 
-  const handleBackClick = () => {
-    // Navigate back to the previous page
-    navigate(-1);
-  };
+ 
   return (
     <>
       <div className="relative flex flex-col min-w-0 break-words w-full my-6 mx-2 shadow-lg rounded-lg bg-blueGray-100 border-0">
         <div className="text-center flex justify-between items-center">
           <div className="flex items-center mx-4 my-5">
-           
             <h6 className="text-blueGray-700 text-xl font-bold">Akun Saya</h6>
           </div>
           <a
             className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-          href={"/editAkun"}
+            href={"/editAkun-admin"}
           >
             Ubah
           </a>
@@ -181,6 +178,7 @@ export default function CardSettings() {
                   <input
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     defaultValue={usia}
+                    disabled
                   />
                 </div>
               </div>
@@ -209,7 +207,7 @@ export default function CardSettings() {
                   </label>
                   <input
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue={Gender === null ? "Belum Di isi" : Gender}
+                    defaultValue={gender === null ? "Belum Di isi" : gender}
                     disabled
                   />
                 </div>
@@ -256,6 +254,7 @@ export default function CardSettings() {
                         ? "Nomer Telepon Belum Di isi"
                         : noTelepom
                     }
+                    disabled
                   />
                 </div>
               </div>
@@ -323,7 +322,6 @@ export default function CardSettings() {
                 </div>
               </div>
             </div>
-            
           </form>
         </div>
       </div>

@@ -1,12 +1,51 @@
-import React from "react";
-import { Link } from "react-router-dom";
-
+import React, { useRef } from "react";
+import emailjs from "emailjs-com";
 // components
-import Logo from "../assets/img/letter-lp-logo-concept-on-white-background-vector-removebg-preview.png";
 import Navbar from "../components/Navbars/AuthNavbar.js";
 import Footer from "../components/Footers/Footer.js";
+import Swal from "sweetalert2";
 
 export default function Landing() {
+  const form = useRef();
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+    emailjs
+      .sendForm(
+        "service_uvzh9ku",
+        "template_vu1g8zd",
+        form.current,
+        "dF33S96RojNw8_rXn"
+      )
+      .then(
+        (result) => {
+          if (result) {
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Berhasil Dikirim",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            setTimeout(() => {
+              window.location.href = "/";
+            }, 1000);
+          }
+        },
+        (error) => {
+          if (error) {
+            Swal.fire({
+              position: "center",
+              icon: "warning",
+              title: "Gagal Dikirim",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        }
+      );
+  };
+
   return (
     <>
       <Navbar transparent />
@@ -28,7 +67,7 @@ export default function Landing() {
               <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
                 <div className="pr-12">
                   <h1 className="text-white font-semibold text-2xl ">
-                    Cari Pekerjaan Dan Pekerja
+                    Cari Pekerjaan
                   </h1>
                 </div>
               </div>
@@ -67,10 +106,7 @@ export default function Landing() {
                     <h6 className="text-xl font-semibold">
                       Peluang Dapat Pekerjaan
                     </h6>
-                    <p className="mt-2 mb-4 text-blueGray-500">
-                      Di dalam APLIKASI ini kalian dapat menemukan berbagai
-                      lowongan pekerjaan yang dicari
-                    </p>
+                    <p className="mt-2 mb-4 text-blueGray-500"></p>
                   </div>
                 </div>
               </div>
@@ -82,12 +118,9 @@ export default function Landing() {
                       <i className="fas fa-retweet"></i>
                     </div>
                     <h6 className="text-xl font-semibold">
-                      Peluang Mencari Pekerja
+                      Peluang Mencari Pekerjaan
                     </h6>
-                    <p className="mt-2 mb-4 text-blueGray-500">
-                      Di APLIKASI ini juga kita bisa mencari pekerja untuk
-                      perusahan industri maupun usaha sendiri
-                    </p>
+                    <p className="mt-2 mb-4 text-blueGray-500"></p>
                   </div>
                 </div>
               </div>
@@ -118,7 +151,7 @@ export default function Landing() {
                   <i className="fas fa-user-friends text-xl"></i>
                 </div>
                 <h3 className="text-3xl mb-2 font-semibold leading-normal">
-                  Bekerja sama adalah kesenangan
+                 Ayo Bekerja
                 </h3>
                 <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-blueGray-600">
                   Jangan buang waktu anda jika anda belum bekerja . Sekarang
@@ -198,12 +231,9 @@ export default function Landing() {
                   <div className="text-lightBlue-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-lightBlue-300">
                     <i className="fas fa-rocket text-xl"></i>
                   </div>
-                  <h3 className="text-3xl font-semibold">
-                    Jangan bermalas malasan
-                  </h3>
+                  <h3 className="text-3xl font-semibold">Cara Pakai</h3>
                   <p className="mt-4 text-lg leading-relaxed text-blueGray-500">
-                    Kalau kalian ingin berhasil dalam pekerjaan dunia dan
-                    akhirat . Kalian harus terapkan 5M
+                    Ada Alurnya
                   </p>
                   <ul className="list-none mt-6">
                     <li className="py-2">
@@ -215,7 +245,7 @@ export default function Landing() {
                         </div>
                         <div>
                           <h4 className="text-blueGray-500">
-                            Memperkokoh pondasi Iman
+                            Melakukan Registrasi
                           </h4>
                         </div>
                       </div>
@@ -228,9 +258,7 @@ export default function Landing() {
                           </span>
                         </div>
                         <div>
-                          <h4 className="text-blueGray-500">
-                            Membekali diri dengan Ilmu
-                          </h4>
+                          <h4 className="text-blueGray-500">Login</h4>
                         </div>
                       </div>
                     </li>
@@ -243,7 +271,7 @@ export default function Landing() {
                         </div>
                         <div>
                           <h4 className="text-blueGray-500">
-                            Memulai untuk berusaha dan bekerja keras
+                            Melakukan pelamaran
                           </h4>
                         </div>
                       </div>
@@ -257,7 +285,7 @@ export default function Landing() {
                         </div>
                         <div>
                           <h4 className="text-blueGray-500">
-                            Melakukan pekerajaan dengan Ikhlas
+                            Admin akan menentukan
                           </h4>
                         </div>
                       </div>
@@ -271,7 +299,8 @@ export default function Landing() {
                         </div>
                         <div>
                           <h4 className="text-blueGray-500">
-                            Menyempurnakan dengan Istiqomah{" "}
+                            Ketika sudah melamar akan ada notifikasi dari
+                            perusahaan tersebut
                           </h4>
                         </div>
                       </div>
@@ -321,73 +350,78 @@ export default function Landing() {
           </div>
         </section>
         <section className="relative block py-24 lg:pt-0 bg-blueGray-800">
-          <div className="container mx-auto px-4">
-            <div className="flex flex-wrap justify-center lg:-mt-64 -mt-48">
-              <div className="w-full lg:w-6/12 px-4">
-                <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200">
-                  <div className="flex-auto p-5 lg:p-10">
-                    <h4 className="text-2xl font-semibold">
-                      Apakah aplikasi ini membantu?
-                    </h4>
-                    <p className="leading-relaxed mt-1 mb-4 text-blueGray-500">
-                      Jika ada saran dan masukan <br />
-                      Tulis saran dan masukan dibawah ini
-                    </p>
-                    <div className="relative w-full mb-3 mt-8">
-                      <label
-                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                        htmlFor="nama_lengkap"
-                      >
-                        Nama Lengkap{" "}
-                      </label>
-                      <input
-                        type="text"
-                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        placeholder="Nama Lengkap"
-                      />
-                    </div>
+          <form ref={form} onSubmit={sendEmail}>
+            <div className="container mx-auto px-4">
+              <div className="flex flex-wrap justify-center lg:-mt-64 -mt-48">
+                <div className="w-full lg:w-6/12 px-4">
+                  <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200">
+                    <div className="flex-auto p-5 lg:p-10">
+                      <h4 className="text-2xl font-semibold">
+                        Apakah aplikasi ini membantu?
+                      </h4>
+                      <p className="leading-relaxed mt-1 mb-4 text-blueGray-500">
+                        Jika ada saran dan masukan <br />
+                        Tulis saran dan masukan dibawah ini
+                      </p>
+                      <div className="relative w-full mb-3 mt-8">
+                        <label
+                          className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                          htmlFor="nama_lengkap"
+                        >
+                          Nama Lengkap{" "}
+                        </label>
+                        <input
+                          type="text"
+                          className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                          placeholder="Nama Lengkap"
+                          name="nama_lengkap"
+                        />
+                      </div>
 
-                    <div className="relative w-full mb-3">
-                      <label
-                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                        htmlFor="email"
-                      >
-                        Email
-                      </label>
-                      <input
-                        type="email"
-                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        placeholder="Email"
-                      />
-                    </div>
+                      <div className="relative w-full mb-3">
+                        <label
+                          className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                          htmlFor="email"
+                        >
+                          Email
+                        </label>
+                        <input
+                          type="email"
+                          className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                          placeholder="Email"
+                          name="email_user"
+                        />
+                      </div>
 
-                    <div className="relative w-full mb-3">
-                      <label
-                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                        htmlFor="saran_masukan"
-                      >
-                        Saran dan Masukan
-                      </label>
-                      <textarea
-                        rows="4"
-                        cols="80"
-                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                        placeholder="Ketik sesuatu ..."
-                      />
-                    </div>
-                    <div className="text-center mt-6">
-                      <button
-                        className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                        type="button"
-                      >
-                        Kirim{" "}
-                      </button>
+                      <div className="relative w-full mb-3">
+                        <label
+                          className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                          htmlFor="saran_masukan"
+                        >
+                          Saran dan Masukan
+                        </label>
+                        <textarea
+                          rows="4"
+                          cols="80"
+                          className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                          placeholder="Ketik sesuatu ..."
+                          name="message"
+                        />
+                      </div>
+                      <div className="text-center mt-6">
+                        <button
+                          className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                          type="submit"
+                        >
+                          Kirim{" "}
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </form>
         </section>
       </main>
       <Footer />
